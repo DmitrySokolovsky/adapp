@@ -1,18 +1,11 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
-import * as pg from 'pg';
+import { CustomerRepository } from './repo/customer-repo/customer-repository';
+import { CustomerAddModel } from './models/customer-models';
 
 const app = express();
 
-const connectionString: string = 'postgres://postgres:Dimmy_1989_guNN@localhost/addb';
-const qStrInsert: string = 'INSERT INTO customers (name,age) VALUES ($1,$2)';
-const qStrSelect: string = 'SELECT * FROM customers';
-
 app.use(bodyParser.json());
-
-const client = new pg.Client({
-    connectionString: connectionString
-});
 
 app.use(bodyParser.urlencoded({
     extended: true
@@ -24,32 +17,19 @@ app.use((req: express.Request, res: express.Response , next: Function): void => 
     next();
 });
 
-app.post('/users', (req, res, next) => {
-    const name = req.body.name;
-    const age = req.body.age;
-    client.connect();
-    client.query(qStrInsert, [name, age], (err, result) => {
-        
-        if (err) {
-            console.log(err.stack);
-        } else {
-            res.sendStatus(200);
-        }
-        client.end();
-    });
+app.get('/', (req: express.Request, res: express.Response, next: Function): void => {
+    res.json('hello');
 });
 
-app.get('/users', (req, res, next) => {
-    client.connect();
-    client.query(qStrSelect, [], (err, result) => {
-        
-        if (err) {
-            console.log(err.stack);
-        } else {
-            res.json(result.rows);
-        }
-        client.end();
-    });
+app.get('/cust', (req: express.Request, res: express.Response, next: Function): void => {
+    const mParams: CustomerAddModel = {
+        name: 'Serg',
+        company: 'OOO',
+        phone: '123654',
+        email: 'string@string.str'
+    };
+    const sr = new CustomerRepository();
+    sr.addCustomer(mParams);
 });
 
 app.listen(3000, () => {

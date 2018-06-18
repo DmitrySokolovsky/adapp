@@ -1,1 +1,0 @@
-export const BASE_DB_URL: string = 'postgres://postgres:Dimmy_1989_guNN@localhost/addb';
