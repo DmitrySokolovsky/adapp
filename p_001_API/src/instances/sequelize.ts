@@ -1,11 +1,7 @@
 import { Sequelize } from 'sequelize-typescript';
 
-import { Customer } from '../models';
-
-//const connectionString: string = 'postgres://postgres:Dimmy_1989_guNN@localhost/addappdb';
-
 export const sequelize = new Sequelize({
-    database: 'addappdb',
+    database: 'adappdb',
     dialect: 'postgres',
     pool: {
         max: 5,
@@ -14,6 +10,6 @@ export const sequelize = new Sequelize({
         idle: 10000
     },
     username: 'postgres',
-    password: 'sokill666',
+    password: 'Dimmy_1989_guNN',
     modelPaths: [__dirname + '/models']
 });

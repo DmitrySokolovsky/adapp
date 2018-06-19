@@ -1,46 +1,43 @@
-import * as express from 'express';
+//import * as express from 'express';
 import * as bodyParser from 'body-parser';
+import 'reflect-metadata';
+import * as morgan from 'morgan';
+import { InversifyExpressServer } from 'inversify-express-utils';
+import { LoggerService, LoggerServiceImplementation } from './services';
+import { LogStatus } from './constant';
+import { CONTAINER } from './services/services-registration';
+
+import './controller';
+
 import { CustomerRepository } from './repo/customer-repo/customer-repository';
 import { CustomerAddModel, Customer } from './models/customer-models.model';
 import { sequelize } from './instances';
 
-const app = express();
+let logger: LoggerService = new LoggerServiceImplementation();
 
-sequelize.authenticate().then(() => console.log('db connect'));
+sequelize.authenticate().then(() => {
+    logger.log(`DATABASE CONNECTED\n`,
+        LogStatus.INFO);
+    logger.log('Press CTRL+C to stop\n', LogStatus.INFO);
+});
 sequelize.addModels([Customer]);
 sequelize.sync({force: true});
 
-app.use(bodyParser.json());
+let server = new InversifyExpressServer(CONTAINER);
 
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
-
-app.use((req: express.Request, res: express.Response , next: Function): void => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
+server.setConfig((app) => {
+    app.use(bodyParser.urlencoded({
+        extended: true
+    }));
+    app.use(bodyParser.json());
+    app.use(morgan('dev'));
+    // app.use(express.static('../epump-app/build'));
 });
 
-app.get('/', (req: express.Request, res: express.Response, next: Function): void => {
-    res.json('hello');
-    res.sendStatus(200);
-    const sr = new CustomerRepository();
-    sr.getAllCustomers();
-});
+let serverInstance = server.build();
 
-app.get('/cust', (req: express.Request, res: express.Response, next: Function): void => {
-    const mParams: CustomerAddModel = {
-        name: 'Serg',
-        company: 'OOO',
-        phone: '123654',
-        email: 'string@string.str'
-    };
-    const sr = new CustomerRepository();
-    sr.addCustomer(mParams);
-    res.sendStatus(200);
-});
-
-app.listen(3000, () => {
-    console.log('listening 3000');
+serverInstance.listen(3000, () => {
+    logger.log(`App is running at http://localhost:3003`,
+        LogStatus.INFO);
+    logger.log('Press CTRL+C to stop\n', LogStatus.INFO);
 });
