@@ -4,7 +4,6 @@ import { ICustomerRepo } from "./customer-repo-interface";
 export class CustomerRepository implements ICustomerRepo {
     
     public constructor() { 
-        
         console.log('created');
     }
 
@@ -15,12 +14,13 @@ export class CustomerRepository implements ICustomerRepo {
             phone: oParams.phone,
             email: oParams.email
         };
-        
+
         Customer.create(customer);
         console.log('SAVED');
     }
 
     public getAllCustomers(): void {
         Customer.findAll().then((customers) => console.log(customers));
+        console.log(Customer.findAll());
     }
 }

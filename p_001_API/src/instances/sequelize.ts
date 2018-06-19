@@ -2,8 +2,6 @@ import { Sequelize } from 'sequelize-typescript';
 
 import { Customer } from '../models';
 
-//const connectionString: string = 'postgres://postgres:Dimmy_1989_guNN@localhost/addappdb';
-
 export const sequelize = new Sequelize({
     database: 'addappdb',
     dialect: 'postgres',

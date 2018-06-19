@@ -1,20 +1,31 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
+import * as morgan from "morgan";
+import { CONTAINER } from './service/services-registration';
+
+import { InversifyExpressServer } from 'inversify-express-utils';
+import { Container } from 'inversify';
+
+// ------------------------------------------
+
 import { CustomerRepository } from './repo/customer-repo/customer-repository';
 import { CustomerAddModel, Customer } from './models/customer-models.model';
 import { sequelize } from './instances';
 
-const app = express();
-
 sequelize.authenticate().then(() => console.log('db connect'));
 sequelize.addModels([Customer]);
 sequelize.sync({force: true});
+
+// ------------------------------------------
+
+let server = new InversifyExpressServer(CONTAINER);
 
 app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+
 
 app.use((req: express.Request, res: express.Response , next: Function): void => {
     res.header("Access-Control-Allow-Origin", "*");
@@ -23,7 +34,6 @@ app.use((req: express.Request, res: express.Response , next: Function): void => 
 });
 
 app.get('/', (req: express.Request, res: express.Response, next: Function): void => {
-    res.json('hello');
     res.sendStatus(200);
     const sr = new CustomerRepository();
     sr.getAllCustomers();
