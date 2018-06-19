@@ -1,15 +1,19 @@
 import { Sequelize } from 'sequelize-typescript';
-import { Customer } from '../models/customer-models';
-import 'reflect-metadata';
 
-const connectionString: string = 'postgres://postgres:Dimmy_1989_guNN@localhost/addappdb';
+import { Customer } from '../models';
 
-const sequelize = new Sequelize(connectionString);
-sequelize.addModels([Customer]);
+//const connectionString: string = 'postgres://postgres:Dimmy_1989_guNN@localhost/addappdb';
 
-sequelize.authenticate().then(() => {
-    console.log('Connection has been established successfully.');
-})
-.catch(err => {
-    console.error('Unable to connect to the database:', err);
+export const sequelize = new Sequelize({
+    database: 'addappdb',
+    dialect: 'postgres',
+    pool: {
+        max: 5,
+        min: 0,
+        acquire: 30000,
+        idle: 10000
+    },
+    username: 'postgres',
+    password: 'sokill666',
+    modelPaths: [__dirname + '/models']
 });

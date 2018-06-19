@@ -6,7 +6,7 @@
     "src/**/*.ts"
   ],
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "es6",
     "noImplicitAny": true,
     "target": "es6",
     "lib": [

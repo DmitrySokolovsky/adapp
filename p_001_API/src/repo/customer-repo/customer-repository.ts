@@ -1,4 +1,4 @@
-import { Customer, CustomerAddModel } from "../../models/customer-models";
+import { Customer, CustomerAddModel } from "../../models/customer-models.model";
 import { ICustomerRepo } from "./customer-repo-interface";
 
 export class CustomerRepository implements ICustomerRepo {
@@ -9,7 +9,7 @@ export class CustomerRepository implements ICustomerRepo {
     }
 
     public addCustomer(oParams: CustomerAddModel): void {
-        const customer = {
+        const customer: CustomerAddModel = {
             name: oParams.name,
             company: oParams.company,
             phone: oParams.phone,
@@ -21,6 +21,6 @@ export class CustomerRepository implements ICustomerRepo {
     }
 
     public getAllCustomers(): void {
-        Customer.findAll().then(customers => console.log(customers));
+        Customer.findAll().then((customers) => console.log(customers));
     }
 }

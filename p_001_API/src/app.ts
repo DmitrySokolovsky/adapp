@@ -1,9 +1,14 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import { CustomerRepository } from './repo/customer-repo/customer-repository';
-import { CustomerAddModel } from './models/customer-models';
+import { CustomerAddModel, Customer } from './models/customer-models.model';
+import { sequelize } from './instances';
 
 const app = express();
+
+sequelize.authenticate().then(() => console.log('db connect'));
+sequelize.addModels([Customer]);
+sequelize.sync({force: true});
 
 app.use(bodyParser.json());
 
@@ -19,6 +24,9 @@ app.use((req: express.Request, res: express.Response , next: Function): void => 
 
 app.get('/', (req: express.Request, res: express.Response, next: Function): void => {
     res.json('hello');
+    res.sendStatus(200);
+    const sr = new CustomerRepository();
+    sr.getAllCustomers();
 });
 
 app.get('/cust', (req: express.Request, res: express.Response, next: Function): void => {
@@ -30,6 +38,7 @@ app.get('/cust', (req: express.Request, res: express.Response, next: Function): 
     };
     const sr = new CustomerRepository();
     sr.addCustomer(mParams);
+    res.sendStatus(200);
 });
 
 app.listen(3000, () => {

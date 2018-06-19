@@ -1,1 +1,1 @@
-export * from './sequelize';
+export { sequelize } from './sequelize';
