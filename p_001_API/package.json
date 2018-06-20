@@ -5,7 +5,7 @@
     "prebuild": "npm run lint",
     "build": "webpack --config webpack.config.js --env=dev",
     "prestart": "npm run build",
-    "start": "nodemon node ./build/p001-server.app.bundle.js",
+    "start": "node ./build/p001-server.app.bundle.js",
     "preprod": "npm test",
     "prod": "webpack --config webpack.config.js --env=prod",
     "prestart-prod": "npm run prod",
@@ -37,6 +37,7 @@
     "webpack-node-externals": "^1.6.0"
   },
   "dependencies": {
+    "@types/es6-promise": "^3.3.0",
     "@types/pg": "^7.4.9",
     "express": "^4.16.2",
     "inversify": "^4.11.1",

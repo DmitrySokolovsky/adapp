@@ -1,26 +1,39 @@
-import { Customer, CustomerAddModel } from "../../models/customer-models.model";
+import { CustomerAddModel, Customer } from "../../models/customer-models.model";
 import { ICustomerRepo } from "./customer-repo-interface";
+import { injectable, inject } from "inversify";
+import { LoggerService } from "../../services";
+import { LogStatus } from "../../constant";
 
+@injectable()
 export class CustomerRepository implements ICustomerRepo {
     
-    public constructor() { 
-        console.log('created');
+    public constructor(@inject(LoggerService) private loggerService: LoggerService) { 
+        this.loggerService.log(`Customer Repository usage`, LogStatus.INFO);
     }
 
-    public addCustomer(oParams: CustomerAddModel): void {
-        const customer: CustomerAddModel = {
-            name: oParams.name,
-            company: oParams.company,
-            phone: oParams.phone,
-            email: oParams.email
-        };
-
-        Customer.create(customer);
-        console.log('SAVED');
+    public addCustomer(oParams: CustomerAddModel): Promise<Customer[]> {
+        return new Promise<Customer[]>((resolve, reject) => {
+            Customer.create().then(
+                (res) => {
+                    this.loggerService.log(`Set all customer success ${res}`, LogStatus.INFO);
+                }
+            ).catch(
+                (error) => {
+                    this.loggerService.log(error.errmsg, LogStatus.ERROR);
+                }
+            );
+        });
     }
 
-    public getAllCustomers(): void {
-        Customer.findAll().then((customers) => console.log(customers));
-        console.log(Customer.findAll());
+    public getAllCustomers(): Promise<Customer[]> {
+        return new Promise<Customer[]>((resolve, reject) => {
+            Customer.findAll().then((res) => { 
+                this.loggerService.log(`Get all customers success`, LogStatus.INFO);
+                resolve(res); 
+            }).catch(
+                (error) => {
+                    this.loggerService.log(error.errmsg, LogStatus.ERROR);
+                });
+        });
     }
 }

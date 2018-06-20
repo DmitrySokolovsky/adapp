@@ -1,6 +1,6 @@
-import { CustomerAddModel } from "../../models/customer-models.model";
+import { CustomerAddModel, Customer } from "../../models/customer-models.model";
 
 export abstract class ICustomerRepo {
-    public abstract addCustomer(customer: CustomerAddModel): void;
-    public abstract getAllCustomers(): void;
+    public abstract addCustomer(customer: CustomerAddModel): Promise<Customer[]>;
+    public abstract getAllCustomers(): Promise<Customer[]>;
 }
