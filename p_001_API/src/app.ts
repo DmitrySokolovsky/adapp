@@ -31,7 +31,7 @@ server.setConfig((app) => {
     }));
     app.use(bodyParser.json());
     app.use(morgan('dev'));
-    // app.use(express.static('../epump-app/build'));
+    // app.use(express.static('../p_001_APP/build'));
 });
 
 let serverInstance = server.build();
