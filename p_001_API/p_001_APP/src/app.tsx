@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
+import { Root } from './components';
 
-import { Adder } from './components/Adder/adder-component';
-
-ReactDOM.render(<Adder/>, document.getElementById("app"));
+ReactDOM.render(<Root/>, document.getElementById("app"));

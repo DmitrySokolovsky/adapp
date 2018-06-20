@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import { CustomerRepository, ICustomerRepo } from '../repo';
 import { CustomerAddModel } from '../models';
 import { inject } from 'inversify';
-import { LoggerService } from '../services';
+import { LoggerService } from '../service';
 import { LogStatus } from '../constant';
 
 @controller('/customers')

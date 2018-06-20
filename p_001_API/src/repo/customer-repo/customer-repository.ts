@@ -1,7 +1,7 @@
 import { CustomerAddModel, Customer } from "../../models/customer-models.model";
 import { ICustomerRepo } from "./customer-repo-interface";
 import { injectable, inject } from "inversify";
-import { LoggerService } from "../../services";
+import { LoggerService } from "../../service";
 import { LogStatus } from "../../constant";
 
 @injectable()

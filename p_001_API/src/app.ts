@@ -3,9 +3,9 @@ import * as bodyParser from 'body-parser';
 import 'reflect-metadata';
 import * as morgan from 'morgan';
 import { InversifyExpressServer } from 'inversify-express-utils';
-import { LoggerService, LoggerServiceImplementation } from './services';
+import { LoggerService, LoggerServiceImplementation } from './service';
 import { LogStatus } from './constant';
-import { CONTAINER } from './services/services-registration';
+import { CONTAINER } from './service/services-regestration';
 
 import './controller';
 
