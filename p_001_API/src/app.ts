@@ -8,6 +8,8 @@ import { LoggerService, LoggerServiceImplementation } from './service';
 import { LogStatus } from './constant';
 import { CONTAINER } from './service/services-regestration';
 
+import * as path from 'path';
+
 import './controller';
 
 import { Customer } from './models/customer-models.model';
@@ -31,7 +33,9 @@ server.setConfig((app) => {
     }));
     app.use(bodyParser.json());
     app.use(morgan('dev'));
-    app.use(express.static('../p_001_APP/dist'));    
+    console.log(__dirname);
+    app.use(express.static('../p_001_APP/dist'));   
+    //app.get('/', (req, resp) => resp.sendFile(__dirname + '../p_001_APP/dist/index.html')); 
 });
 
 let serverInstance = server.build();

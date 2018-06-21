@@ -16,13 +16,14 @@ export class LoginController {
     @httpPost('/')
     public postSmth(request: Request, response: Response): Promise<Response> {
         const oParams = request.body;
+        console.log(request.body, 'request');
         const params: CustomerLoginModel = {
             email: oParams.email,
             password: oParams.password
         };
 
         return new Promise((resolve, reject) => {
-            resolve(this.customerRepo.customerLogInCheck(params).then((result) => response.send(result)).catch(() => response.send(500)));
+            resolve(this.customerRepo.customerLogInCheck(params).then((result) => response.json(result)).catch(() => response.send(500)));
             reject(this.loggerService.log('Unhandled error', LogStatus.ERROR));
         });
     }
