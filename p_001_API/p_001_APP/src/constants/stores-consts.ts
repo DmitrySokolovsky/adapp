@@ -1,0 +1,1 @@
+export const LOGIN_CUSTOMER_STORE = 'login';

@@ -14,7 +14,7 @@ export class CustomerRepository implements ICustomerRepo {
 
     public addCustomer(oParams: CustomerAddModel): Promise<Customer[]> {
         return new Promise<Customer[]>((resolve, reject) => {
-            Customer.create().then(
+            Customer.create(oParams).then(
                 (res) => {
                     this.loggerService.log(`Set all customer success ${res}`, LogStatus.INFO);
                 }

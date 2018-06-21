@@ -2,6 +2,7 @@
 import * as bodyParser from 'body-parser';
 import 'reflect-metadata';
 import * as morgan from 'morgan';
+import * as express from 'express';
 import { InversifyExpressServer } from 'inversify-express-utils';
 import { LoggerService, LoggerServiceImplementation } from './service';
 import { LogStatus } from './constant';
@@ -9,8 +10,7 @@ import { CONTAINER } from './service/services-regestration';
 
 import './controller';
 
-import { CustomerRepository } from './repo/customer-repo/customer-repository';
-import { CustomerAddModel, Customer } from './models/customer-models.model';
+import { Customer } from './models/customer-models.model';
 import { sequelize } from './instances';
 
 let logger: LoggerService = new LoggerServiceImplementation();
@@ -21,23 +21,23 @@ sequelize.authenticate().then(() => {
     logger.log('Press CTRL+C to stop\n', LogStatus.INFO);
 });
 sequelize.addModels([Customer]);
-sequelize.sync({force: true});
+sequelize.sync();
 
 let server = new InversifyExpressServer(CONTAINER);
 
-server.setConfig((app) => {
+server.setConfig((app) => {   
     app.use(bodyParser.urlencoded({
         extended: true
     }));
     app.use(bodyParser.json());
     app.use(morgan('dev'));
-    // app.use(express.static('../p_001_APP/build'));
+    app.use(express.static('../p_001_APP/dist'));    
 });
 
 let serverInstance = server.build();
 
 serverInstance.listen(3000, () => {
-    logger.log(`App is running at http://localhost:3003`,
+    logger.log(`App is running at http://localhost:3000`,
         LogStatus.INFO);
     logger.log('Press CTRL+C to stop\n', LogStatus.INFO);
 });

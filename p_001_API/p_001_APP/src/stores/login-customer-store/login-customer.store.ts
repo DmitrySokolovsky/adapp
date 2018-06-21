@@ -28,6 +28,7 @@ export class LoginStore {
     }
 
     @action public login(): void {
+        console.log("321321");
         this.loginRepository.loginCheck(this.customerCreds)
             .then((response: CustomerAddModel) => {
                 if (response) {

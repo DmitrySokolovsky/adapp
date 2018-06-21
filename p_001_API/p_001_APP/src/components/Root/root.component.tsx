@@ -1,7 +1,22 @@
 import * as React from 'react';
+import { Provider } from 'mobx-react';
+
 import { IRootState } from './root.interface';
 import { Login } from '..';
-import { HomePage } from '../../view';
+
+import {
+    LoginStore
+} from '../../stores';
+
+import {
+    LOGIN_CUSTOMER_STORE
+} from '../../constants';
+
+const loginStore: LoginStore = new LoginStore();
+
+const rootStore = {
+    [LOGIN_CUSTOMER_STORE]: loginStore
+};
 
 export class Root extends React.Component<{}, IRootState> {
     constructor(props: {}) {
@@ -13,13 +28,9 @@ export class Root extends React.Component<{}, IRootState> {
 
     public render(): JSX.Element {
         return (
-            <div>
-                {
-                    !!this.state.user ?
-                    <HomePage/> :
-                    <Login/> 
-                }
-            </div>
+            <Provider {...rootStore}>
+               <Login/> 
+            </Provider>
         );
     }
 }

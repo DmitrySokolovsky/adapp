@@ -13,14 +13,6 @@ export class LoginController {
         @inject(LoggerService) private loggerService: LoggerService
     ) { }
 
-    // @httpGet('/')
-    // public getSmth(request: Request, response: Response): Promise<Response> {
-    //     return new Promise((resolve, reject) => {
-    //         resolve(this.customerRepo.getAllCustomers().then(data => response.json(data)));
-    //         reject(this.loggerService.log('Unhandled error', LogStatus.ERROR));
-    //     });
-    // }
-
     @httpPost('/')
     public postSmth(request: Request, response: Response): Promise<Response> {
         const oParams = request.body;

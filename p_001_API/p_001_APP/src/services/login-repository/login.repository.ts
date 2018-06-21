@@ -8,13 +8,16 @@ import { ILoginPepo } from "./login.interface";
 @injectable()
 export class LoginRepository extends ILoginPepo {
     public loginCheck (customerInfo: CustomerLoginModel): Promise<CustomerAddModel> {
-        return axios.post(BASE_API_URL + 'login/', customerInfo)
-        .then(response => {
-            if (response.status === 200) {
-                return response.data;
-            } else {
-                return false;
+        return axios({
+            url: BASE_API_URL + '/login',
+            method: 'post',            
+            data: {
+                email: customerInfo.email,
+                password: customerInfo.password
             }
+        })
+        .then(response => {
+            return response.data;
         });
     }
 }
