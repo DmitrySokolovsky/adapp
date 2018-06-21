@@ -1,6 +1,8 @@
 import * as React from 'react';
+import { CustomerAddModel } from '../../models/customer/customer.models';
 
 export class Login extends React.Component<{}, {}> {
+    customer: CustomerAddModel;
     constructor(props: {}) {
         super(props);
     }

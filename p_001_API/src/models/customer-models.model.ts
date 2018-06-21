@@ -16,6 +16,9 @@ export class Customer extends Model<Customer> {
 
     @Column
     public email: string;
+
+    @Column
+    public password: string;
 }
 
 export abstract class CustomerAddModel {
@@ -23,4 +26,10 @@ export abstract class CustomerAddModel {
     public company: string;
     public phone: string;
     public email: string;
+    public password: string;
+}
+
+export abstract class CustomerLoginModel {
+    public email: string;
+    public password: string;
 }

@@ -16,8 +16,8 @@ export class Root extends React.Component<{}, IRootState> {
             <div>
                 {
                     !!this.state.user ?
-                    <Login/> :
-                    <HomePage/>
+                    <HomePage/> :
+                    <Login/> 
                 }
             </div>
         );

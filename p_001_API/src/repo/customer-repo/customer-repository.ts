@@ -1,8 +1,9 @@
-import { CustomerAddModel, Customer } from "../../models/customer-models.model";
+import { CustomerAddModel, Customer, CustomerLoginModel } from "../../models/customer-models.model";
 import { ICustomerRepo } from "./customer-repo-interface";
 import { injectable, inject } from "inversify";
 import { LoggerService } from "../../service";
 import { LogStatus } from "../../constant";
+//import { reject } from "bluebird";
 
 @injectable()
 export class CustomerRepository implements ICustomerRepo {
@@ -25,15 +26,28 @@ export class CustomerRepository implements ICustomerRepo {
         });
     }
 
+    public customerLogInCheck(oParams: CustomerLoginModel): Promise<Customer> {
+        return new Promise<Customer>((resolve, reject) => {
+            Customer.findOne({
+                where: {
+                    email: oParams.email,
+                    password: oParams.password
+                }
+            }).then(res => resolve(res)).catch(error => this.loggerService.log(error.errmsg, LogStatus.ERROR));
+        });
+    }
+
     public getAllCustomers(): Promise<Customer[]> {
         return new Promise<Customer[]>((resolve, reject) => {
             Customer.findAll().then((res) => { 
+                console.log(res);
                 this.loggerService.log(`Get all customers success`, LogStatus.INFO);
                 resolve(res); 
             }).catch(
                 (error) => {
                     this.loggerService.log(error.errmsg, LogStatus.ERROR);
-                });
+                }
+            );
         });
     }
 }
