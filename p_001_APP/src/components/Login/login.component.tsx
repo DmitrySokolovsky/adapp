@@ -4,6 +4,8 @@ import { inject, observer } from 'mobx-react';
 import { LOGIN_CUSTOMER_STORE } from '../../constants';
 import { LoginStore } from '../../stores';
 
+import './login.styles.scss';
+
 @inject(LOGIN_CUSTOMER_STORE)
 @observer
 export class Login extends React.Component<{}, {}> {
@@ -27,12 +29,19 @@ export class Login extends React.Component<{}, {}> {
     
     public render(): JSX.Element {
         return (
-            <div>
-                <label htmlFor="email"></label>
-                <input type="text" id="email" onChange={this.handleEmailChange.bind(this)}/>
-                <label htmlFor="password"></label>
-                <input type="text" id="password"  onChange={this.handlePasswordChange.bind(this)}/>
-                <button onClick={this.handleSubmit.bind(this)}>Login</button>
+            <div className="login-form__container">
+                <div className="login-form">
+                    <div className="login-input__container">
+                        <label htmlFor="email" className="login-control login-label">Email</label>
+                        <input type="text" className="login-control login-input" id="email" onChange={this.handleEmailChange.bind(this)}/>
+                    </div>
+                    <div className="login-input__container">
+                        <label htmlFor="password" className="login-control login-label">Password</label>
+                        <input type="text" className="login-control login-input" id="password"  onChange={this.handlePasswordChange.bind(this)}/>
+                    </div>
+                    <button className="login-control login-button" onClick={this.handleSubmit.bind(this)}>Login</button>
+                    <button className="login-control login-button" onClick={this.handleSubmit.bind(this)}>Register</button>
+                </div>
             </div>
         );
     }
