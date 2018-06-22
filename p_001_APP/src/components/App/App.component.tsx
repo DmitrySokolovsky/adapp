@@ -2,11 +2,12 @@ import * as React from 'react';
 import { IAppProps, IAppState } from './App.interface';
 import { HomePage } from '../../view';
 import { Login } from '..';
-import { inject } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 import { LOGIN_CUSTOMER_STORE } from '../../constants';
 import { LoginStore } from '../../stores';
 
 @inject(LOGIN_CUSTOMER_STORE)
+@observer
 export class App extends React.Component<IAppProps, IAppState> {
     private loginStore: LoginStore = this.props[LOGIN_CUSTOMER_STORE];
     
@@ -17,11 +18,15 @@ export class App extends React.Component<IAppProps, IAppState> {
         } as IAppState;
     }
 
+    componentWillMount() {
+        console.log(this.loginStore.customerData);
+    }
+
     public render(): JSX.Element {
         return (
             <div>
                 {
-                !this.state.customer ?
+                !this.loginStore.customerData ?
                     <Login/>:
                     <HomePage/>
                 }

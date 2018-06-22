@@ -11,13 +11,7 @@ export class LoginStore {
         password: ''
     }
 
-    @observable public customerData: CustomerAddModel = {
-        name: '',
-        company: '',
-        phone: '',
-        email: '',
-        password: ''
-    }
+    @observable public customerData: CustomerAddModel | null = null
 
     @action public setCustomerLogInEmail(email: string): void {
         this.customerCreds.email = email;
@@ -28,12 +22,12 @@ export class LoginStore {
     }
 
     @action public login(): void {
-        console.log("321321");
         this.loginRepository.loginCheck(this.customerCreds)
             .then((response: CustomerAddModel) => {
                 if (response) {
                     this.customerData = response;
                 }
-            });
+            }
+        );
     }
 }
