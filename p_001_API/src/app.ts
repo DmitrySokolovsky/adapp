@@ -1,6 +1,7 @@
 //import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import 'reflect-metadata';
+import * as path from 'path';
 import * as morgan from 'morgan';
 import * as express from 'express';
 import { InversifyExpressServer } from 'inversify-express-utils';
@@ -8,7 +9,7 @@ import { LoggerService, LoggerServiceImplementation } from './service';
 import { LogStatus } from './constant';
 import { CONTAINER } from './service/services-regestration';
 
-import * as path from 'path';
+//import * as path from 'path';
 
 import './controller';
 
@@ -34,8 +35,13 @@ server.setConfig((app) => {
     app.use(bodyParser.json());
     app.use(morgan('dev'));
     console.log(__dirname);
-    app.use(express.static('../p_001_APP/dist'));   
-    //app.get('/', (req, resp) => resp.sendFile(__dirname + '../p_001_APP/dist/index.html')); 
+    //app.use(express.static('../p_001_APP/dist'));
+    app.get('/logged', (req, resp) => {
+        console.log(__dirname, 'dir');
+        resp.sendFile(path.resolve(__dirname, 'p_001_APP/dist/index.html'));
+        //resp.end();
+    });
+    app.get('/', (req, resp) => resp.send('<h1>HELLO WORLD</h1>')); 
 });
 
 let serverInstance = server.build();
