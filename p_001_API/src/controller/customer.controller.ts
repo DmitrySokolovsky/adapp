@@ -6,7 +6,7 @@ import { inject } from 'inversify';
 import { LoggerService } from '../service';
 import { LogStatus } from '../constant';
 
-@controller('/customers')
+@controller('/api/customers')
 export class CustomerController {
     constructor(
         @inject(ICustomerRepo) private customerRepo: ICustomerRepo,

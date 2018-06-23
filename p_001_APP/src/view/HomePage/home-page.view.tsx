@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { Login } from '../../components';
 
 export class HomePage extends React.Component<{}, {}> {
     constructor(props: {}) {
@@ -7,9 +9,12 @@ export class HomePage extends React.Component<{}, {}> {
 
     public render(): JSX.Element {
         return (
-            <div>
-                <h1>HOME</h1>
-            </div>
+            <Router>
+                <div>
+                    <Link to="/login">login</Link>
+                    <Route path='/login' component={Login}/>
+                </div>
+            </Router>
         );
     }
 }

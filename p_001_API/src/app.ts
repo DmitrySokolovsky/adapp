@@ -4,12 +4,12 @@ import 'reflect-metadata';
 import * as path from 'path';
 import * as morgan from 'morgan';
 import * as express from 'express';
+import * as session from 'express-session';
+
 import { InversifyExpressServer } from 'inversify-express-utils';
 import { LoggerService, LoggerServiceImplementation } from './service';
 import { LogStatus } from './constant';
 import { CONTAINER } from './service/services-regestration';
-
-//import * as path from 'path';
 
 import './controller';
 
@@ -28,26 +28,27 @@ sequelize.sync();
 
 let server = new InversifyExpressServer(CONTAINER);
 
-server.setConfig((app) => {   
+server.setConfig((app) => {      
     app.use(bodyParser.urlencoded({
         extended: true
     }));
     app.use(bodyParser.json());
+    app.use(session({
+        secret: 'adapp_api',
+        cookie: {
+            path: '/',
+            maxAge: 30000
+        }
+    }));
+
     app.use(morgan('dev'));
-    console.log(__dirname);
-    //app.use(express.static('../p_001_APP/dist'));
-    app.get('/logged', (req, resp) => {
-        console.log(__dirname, 'dir');
-        resp.sendFile(path.resolve(__dirname, 'p_001_APP/dist/index.html'));
-        //resp.end();
-    });
-    app.get('/', (req, resp) => resp.send('<h1>HELLO WORLD</h1>')); 
+    app.use(express.static('../p_001_APP/dist'));
 });
 
 let serverInstance = server.build();
 
-serverInstance.listen(3000, () => {
-    logger.log(`App is running at http://localhost:3000`,
+serverInstance.listen(3001, () => {
+    logger.log(`App is running at http://localhost:3001`,
         LogStatus.INFO);
     logger.log('Press CTRL+C to stop\n', LogStatus.INFO);
 });
