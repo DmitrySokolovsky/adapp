@@ -6,7 +6,7 @@ import { inject } from 'inversify';
 import { LoggerService } from '../service';
 import { LogStatus } from '../constant';
 
-@controller('/login')
+@controller('/api/login')
 export class LoginController {
     constructor(
         @inject(ICustomerRepo) private customerRepo: ICustomerRepo,
@@ -26,17 +26,8 @@ export class LoginController {
         };
 
         return new Promise((resolve, reject) => {
-            resolve(this.customerRepo.customerLogInCheck(params).then((result) => response.send('done')).catch(() => response.send(500)));
+            resolve(this.customerRepo.customerLogInCheck(params).then((result) => response.json(result)).catch(() => response.send(500)));
             reject(this.loggerService.log('Unhandled error', LogStatus.ERROR));
         });
-    }
-
-    @httpGet('/') 
-    public getSmt(request: Request, response: Response): void {
-        if (request.session.email) {
-            response.redirect('/');
-        } else {
-            response.redirect('/loginn/index.html');
-        }
     }
 }

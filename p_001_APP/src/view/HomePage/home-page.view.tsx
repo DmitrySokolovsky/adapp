@@ -1,6 +1,9 @@
 import * as React from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { Route,  Switch } from 'react-router-dom';
+import { MainPage } from '../MainPage/main-page.component';
+//import { Paper } from 'material-ui';
 import { Login } from '../../components';
+import { GalleryPage } from '../GalleryPage';
 
 export class HomePage extends React.Component<{}, {}> {
     constructor(props: {}) {
@@ -9,12 +12,16 @@ export class HomePage extends React.Component<{}, {}> {
 
     public render(): JSX.Element {
         return (
-            <Router>
-                <div>
-                    <Link to="/login">login</Link>
-                    <Route path='/login' component={Login}/>
-                </div>
-            </Router>
+            <div>
+                
+                <Switch>
+                    <Route exact path='/' component={GalleryPage}/>
+                    <Route path='/login' component={Login} />
+                    <Route path="/main_page" component={MainPage} />
+                </Switch>
+
+
+            </div>
         );
     }
 }

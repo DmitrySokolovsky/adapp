@@ -13,13 +13,6 @@ export class LoginRepository extends ILoginPepo {
                 email: customerInfo.email,
                 password: customerInfo.password            
             })
-            .then(response => {
-                if (response.data === 'done') {
-                    console.log(response.data);
-                    window.location.href = 'http://localhost:3001/';
-                }
-                return response.data;
-            }
-        );
+            .then(response => response.data as CustomerAddModel);
     }
 }

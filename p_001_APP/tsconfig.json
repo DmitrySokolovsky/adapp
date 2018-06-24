@@ -4,7 +4,7 @@
         "outDir": "dist",
         "target": "es5",
         "lib": ["es6", "dom"],
-        "types": ["reflect-metadata"],
+        "types": ["reflect-metadata", "node"],
         "module": "esnext",
         "moduleResolution": "node",
         "emitDecoratorMetadata": true,
@@ -16,7 +16,15 @@
         "strictNullChecks": true,
         "suppressImplicitAnyIndexErrors": true,
         "noUnusedLocals": true,
-        "experimentalDecorators": true
-    
-    }
+        "experimentalDecorators": true    
+    },
+    "exclude": [
+        "node_modules",
+        "build",
+        "scripts",
+        "acceptance-tests",
+        "webpack",
+        "jest",
+        "src/setupTests.ts"
+      ]
 }
