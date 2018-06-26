@@ -1,0 +1,9 @@
+.navigation {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+
+    &-item {
+        padding: 0 15px;
+    }
+}

@@ -25,13 +25,13 @@ export class LoggedContent extends React.Component<{}, {}> {
 
     public render(): React.ReactNode | null {
         if (this.loginStore.customerData){
-            return this.props.children;
+            return this.props.children as JSX.Element;
         } else {
             return null;
         }
     }
 
     private runToLogin():void {
-        this.navService.navigateTo('./login');
+        this.navService.navigateTo('#/login');
     }
 }

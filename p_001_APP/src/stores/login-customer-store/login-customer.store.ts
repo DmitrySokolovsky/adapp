@@ -1,10 +1,11 @@
 import { observable, action } from 'mobx';
 import { inject } from '../../services/services-regestration';
-import { ILoginPepo } from '../../services';
+import { ILoginPepo, INavigationService } from '../../services';
 import { CustomerLoginModel, CustomerAddModel } from '../../models';
 
 export class LoginStore {
     @inject(ILoginPepo) public loginRepository: ILoginPepo;
+    @inject(INavigationService) public navService: INavigationService;
 
     @observable public customerCreds: CustomerLoginModel = {
         email: '',
@@ -26,6 +27,7 @@ export class LoginStore {
             .then((response: CustomerAddModel) => {
                 if (response) {
                     this.customerData = response;
+                    this.navService.navigateTo('#/main');
                 }
             }
         );

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Paper, Button } from "material-ui";
+import { Paper } from "material-ui";
 import { LoggedContent } from "../../components";
 
 export class MainPage extends React.Component<{}, {}> {
@@ -13,7 +13,7 @@ export class MainPage extends React.Component<{}, {}> {
                 <Paper elevation={3}>
                     <h1>Hello</h1>
                 </Paper>
-                <Button>Hello</Button>
+
             </LoggedContent>
         );
     }
