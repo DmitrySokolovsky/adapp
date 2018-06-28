@@ -1,33 +1,32 @@
-import { controller, httpGet, httpPost, httpPut } from 'inversify-express-utils';
+import { controller, httpPost } from 'inversify-express-utils';
 import { Request, Response } from 'express';
-import { CustomerRepository, ICustomerRepo } from '../repo';
-import { CustomerLoginModel } from '../models';
-import { inject } from 'inversify';
-import { LoggerService } from '../service';
-import { LogStatus } from '../constant';
+import * as passport from 'passport';
+import * as jwt from 'jsonwebtoken';
 
 @controller('/api/login')
 export class LoginController {
-    constructor(
-        @inject(ICustomerRepo) private customerRepo: ICustomerRepo,
-        @inject(LoggerService) private loggerService: LoggerService
-    ) { }
 
     @httpPost('/')
-    public postSmth(request: Request, response: Response): Promise<Response> {
-        const oParams = request.body;
+    public logIn(request: Request, response: Response): void {
 
-        request.session.email = oParams.email;
-        request.session.password = oParams.password;
+        passport.authenticate('local', { session: true }, (err, customer, info) => {
+            if (err || !customer) {
 
-        const params: CustomerLoginModel = {
-            email: oParams.email,
-            password: oParams.password
-        };
+                return response.status(400).json({
+                    message: 'Error',
+                    customer: customer
+                });
+            }
 
-        return new Promise((resolve, reject) => {
-            resolve(this.customerRepo.customerLogInCheck(params).then((result) => response.json(result)).catch(() => response.send(500)));
-            reject(this.loggerService.log('Unhandled error', LogStatus.ERROR));
+            request.login(customer, { session: true }, (err) => {
+                if (err) {
+                    response.send(err);
+                }
+
+                const token = jwt.sign(customer, 'secret');
+                
+                return response.json({customer, token});
+            });
         });
     }
 }
