@@ -12,7 +12,7 @@ export class LoginStore {
         password: ''
     }
 
-    @observable public customerData: CustomerAddModel | null = null
+    @observable public customerData: CustomerAddModel | null = null;
 
     @action public setCustomerLogInEmail(email: string): void {
         this.customerCreds.email = email;
@@ -23,14 +23,25 @@ export class LoginStore {
     }
 
     @action public login(): void {
-        this.loginRepository.loginCheck(this.customerCreds)
+        this.loginRepository.getToken(this.customerCreds)
             .then((response) => {
-                console.log(response);
                 if (response) {
-                    console.log(response);
-                    this.customerData = response;
+                    localStorage.setItem('userCredsToken', response.token);
                 }
             }
         );
+    }
+
+    @action public setCustomerData(): void {
+        const token = localStorage.getItem('userCredsToken');
+
+        if(token) {
+            this.loginRepository.getCustomerDataWithToken(token)
+                .then((response) => {
+                    this.customerData = response;
+                });
+        } else {
+            alert('Error');
+        }
     }
 }

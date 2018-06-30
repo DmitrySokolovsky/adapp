@@ -32,6 +32,6 @@ export class LoggedContent extends React.Component<{}, {}> {
     }
 
     private runToLogin():void {
-        this.navService.navigateTo('#/login');
+        this.navService.navigateTo('/login');
     }
 }

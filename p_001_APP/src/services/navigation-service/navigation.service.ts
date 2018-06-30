@@ -15,7 +15,7 @@ export class NavigationService implements INavigationService {
         return this.history;
     }
 
-    public navigateTo(url: string): void {
+    public navigateTo( url: string ): void {
         this.history.push(url);
     }
 }

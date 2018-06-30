@@ -22,7 +22,7 @@ export class LoginController {
         };
 
         return new Promise((resolve, reject) => {
-            resolve(this.customerRepo.customerLogInCheck(oParams).then(() => response.json({token: jwt.sign(oParams, 'feed')})));
+            resolve(this.customerRepo.customerLogInCheck(oParams).then(() => response.json({token: jwt.sign(oParams.email, 'feed')})));
             reject(this.loggerService.log('Unhandled error', LogStatus.ERROR));
         });
     }

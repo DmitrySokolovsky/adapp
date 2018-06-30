@@ -13,7 +13,7 @@ import {
 
 import { ShComponentsProvider } from '../../common/shared-components/shared-components-provider/sh-component-provider.component';
 import { inject } from '../../services';
-import { HashRouter } from 'react-router-dom';
+import { Router } from 'react-router-dom';
 import { HomePage } from '../../view';
 import { INavigationService } from '../../services';
 
@@ -34,9 +34,9 @@ export class Root extends React.Component<{}, {}> {
         return (
             <Provider {...rootStore}>
                 <ShComponentsProvider>
-                    <HashRouter>
+                    <Router history={this.navigationService.getHistory()}>
                         <HomePage />
-                    </HashRouter>
+                    </Router>
                 </ShComponentsProvider>
             </Provider>
         );
