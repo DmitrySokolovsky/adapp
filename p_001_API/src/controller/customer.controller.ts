@@ -1,6 +1,6 @@
 import { controller, httpGet, httpPost, httpPut } from 'inversify-express-utils';
 import { Request, Response } from 'express';
-import { CustomerRepository, ICustomerRepo } from '../repo';
+import { ICustomerRepo } from '../repo';
 import { CustomerAddModel } from '../models';
 import { inject } from 'inversify';
 import { LoggerService } from '../service';

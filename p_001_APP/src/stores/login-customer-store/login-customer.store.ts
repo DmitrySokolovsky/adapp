@@ -24,10 +24,11 @@ export class LoginStore {
 
     @action public login(): void {
         this.loginRepository.loginCheck(this.customerCreds)
-            .then((response: CustomerAddModel) => {
+            .then((response) => {
+                console.log(response);
                 if (response) {
+                    console.log(response);
                     this.customerData = response;
-                    this.navService.navigateTo('#/main');
                 }
             }
         );

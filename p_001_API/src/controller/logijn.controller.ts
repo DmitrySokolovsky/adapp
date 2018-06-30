@@ -1,32 +1,29 @@
 import { controller, httpPost } from 'inversify-express-utils';
 import { Request, Response } from 'express';
-import * as passport from 'passport';
+import { inject } from 'inversify';
+import { ICustomerRepo } from '../repo';
+import { LoggerService } from '../service';
+import { CustomerLoginModel } from '../models';
+import { LogStatus } from '../constant';
 import * as jwt from 'jsonwebtoken';
 
 @controller('/api/login')
 export class LoginController {
+    constructor(
+        @inject(ICustomerRepo) private customerRepo: ICustomerRepo,
+        @inject(LoggerService) private loggerService: LoggerService
+    ) { }
 
     @httpPost('/')
-    public logIn(request: Request, response: Response): void {
+    public logIn(request: Request, response: Response): Promise<Response> {
+        const oParams: CustomerLoginModel = {
+            email: request.body.email,
+            password: request.body.password
+        };
 
-        passport.authenticate('local', { session: true }, (err, customer, info) => {
-            if (err || !customer) {
-
-                return response.status(400).json({
-                    message: 'Error',
-                    customer: customer
-                });
-            }
-
-            request.login(customer, { session: true }, (err) => {
-                if (err) {
-                    response.send(err);
-                }
-
-                const token = jwt.sign(customer, 'secret');
-                
-                return response.json({customer, token});
-            });
+        return new Promise((resolve, reject) => {
+            resolve(this.customerRepo.customerLogInCheck(oParams).then(() => response.json({token: jwt.sign(oParams, 'feed')})));
+            reject(this.loggerService.log('Unhandled error', LogStatus.ERROR));
         });
     }
 }
