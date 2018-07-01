@@ -22,14 +22,14 @@ export class LoginStore {
         this.customerCreds.password = password;
     }
 
-    @action public login(): void {
-        this.loginRepository.getToken(this.customerCreds)
+    @action public login(): Promise<void> {
+        return this.loginRepository.getToken(this.customerCreds)
             .then((response) => {
                 if (response) {
                     localStorage.setItem('userCredsToken', response.token);
                 }
             }
-        );
+        ).catch(err => console.log(err));
     }
 
     @action public setCustomerData(): void {

@@ -37,6 +37,18 @@ export class CustomerRepository implements ICustomerRepo {
         });
     }
 
+    public getCustomerWithEmail(email: string): Promise<Customer> {
+        console.log(email, "EMAIL EMAIL EMAIL ");
+        
+        return new Promise<Customer>((resolve, reject) => {
+            Customer.findOne({
+                where: {
+                    email: email
+                }
+            }).then((res) => resolve(res)).catch(error => reject(this.loggerService.log(error.errmsg, LogStatus.ERROR)));
+        });
+    }
+
     public getAllCustomers(): Promise<Customer[]> {
         return new Promise<Customer[]>((resolve, reject) => {
             Customer.findAll().then((res) => { 

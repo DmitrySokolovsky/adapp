@@ -22,8 +22,7 @@ export class Login extends React.Component {
     }
 
     handleSubmit(name: string, value: string) {
-        this.loginStore.login();
-        this.navigationService.navigateTo(value);
+        this.loginStore.login().then(() => this.navigationService.navigateTo(value));
     }
 
     

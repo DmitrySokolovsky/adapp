@@ -3,6 +3,7 @@ import 'reflect-metadata';
 // import * as path from 'path';
 import * as morgan from 'morgan';
 import * as express from 'express';
+import * as passport from 'passport';
 
 import { InversifyExpressServer } from 'inversify-express-utils';
 import { LoggerService, LoggerServiceImplementation } from './service';
@@ -13,6 +14,8 @@ import './controller';
 
 import { Customer } from './models/customer-models.model';
 import { sequelize } from './instances';
+
+import './instances/passport';
 
 let logger: LoggerService = new LoggerServiceImplementation();
 
@@ -31,9 +34,9 @@ server.setConfig((app) => {
         extended: true
     }));
     app.use(bodyParser.json());
-     
+    app.use(passport.initialize());
     app.use(morgan('dev'));
-    app.use(express.static('../p_001_APP/dist'));                                    
+    app.use(express.static('../p_001_APP/dist'));                                
 });
 
 let serverInstance = server.build();

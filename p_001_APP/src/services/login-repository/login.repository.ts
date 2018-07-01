@@ -19,6 +19,6 @@ export class LoginRepository extends ILoginPepo {
     public getCustomerDataWithToken(token: string): Promise<CustomerAddModel> {
         return axios.post(BASE_API_URL + '/auth',
             { token: token }
-        ).then(response => response.data);
+        ).then(response => response.data).catch(err => console.log(err));
     }
 }

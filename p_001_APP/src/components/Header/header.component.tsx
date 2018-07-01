@@ -21,7 +21,7 @@ export class Header extends React.Component {
 
     public render(): JSX.Element {
         return (
-            <AppBar>
+            <AppBar position="static">
                 <ul className="navigation">
                     <li className="navigation-item">
                     {
