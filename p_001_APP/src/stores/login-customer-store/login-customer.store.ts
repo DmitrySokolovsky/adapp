@@ -39,9 +39,8 @@ export class LoginStore {
             this.loginRepository.getCustomerDataWithToken(token)
                 .then((response) => {
                     this.customerData = response;
-                });
-        } else {
-            alert('Error');
+                }
+            );
         }
     }
 }

@@ -34,18 +34,18 @@ module.exports = {
                 }
             ]
         },
-        {
-            test: /\.(jpg|png|svg)$/,
-            use: [
-                {
-                    loader: 'file-loader',
-                    options: {
-                        name: 'assets/img/[name].[ext]'
-                    }
-                }
+        // {
+        //     test: /\.(jpg|png|svg)$/,
+        //     use: [
+        //         {
+        //             loader: 'file-loader',
+        //             options: {
+        //                 name: 'assets/img/[name].[ext]'
+        //             }
+        //         }
                 
-            ]
-        },
+        //     ]
+        // },
         {
             test: /\.(woff|woff2|eot|ttf|otf)$/,
             use: [

@@ -12,6 +12,7 @@
   "author": "Dmitry Sokolowsky",
   "license": "ISC",
   "dependencies": {
+    "@material-ui/icons": "^1.1.0",
     "@types/babel-types": "^7.0.2",
     "@types/core-js": "^0.9.46",
     "@types/jss": "^9.5.3",
@@ -36,6 +37,7 @@
     "react-dev-utils": "4.2.1",
     "react-dom": "^16.4.0",
     "react-router-dom": "^4.3.1",
+    "react-spinners": "^0.3.2",
     "reflect-metadata": "^0.1.12",
     "sass-loader": "^7.0.1",
     "source-map-loader": "^0.2.3",

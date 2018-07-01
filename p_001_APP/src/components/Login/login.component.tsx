@@ -6,10 +6,19 @@ import { LoginStore } from '../../stores';
 
 import './login.styles.scss';
 import { ButtonShared } from '../../common/shared-components/sh-button/button.shared';
+import { ILoginState, ILoginProps } from './login.interface';
+import { TextField } from 'material-ui';
 
 @inject(LOGIN_CUSTOMER_STORE)
-export class Login extends React.Component {
+export class Login extends React.Component<ILoginProps, ILoginState> {
     private loginStore: LoginStore = this.props[LOGIN_CUSTOMER_STORE];
+
+    constructor(props: ILoginProps) {
+        super(props);
+        this.state = {
+            loading: true
+        };
+    }
 
     @inversifyInject(INavigationService) public navigationService: INavigationService;
 
@@ -25,24 +34,47 @@ export class Login extends React.Component {
         this.loginStore.login().then(() => this.navigationService.navigateTo(value));
     }
 
+    componentDidMount() {
+        this.setState({
+            loading: false
+        });
+    }
     
     public render(): JSX.Element {
+        if (this.state.loading) {
+            return (
+                <h1>...LOADING</h1>
+            );
+        }
+
         return (
             <div className="login-form__container">
                 <div className="login-form">
                     <div className="login-input__container">
-                        <label htmlFor="email" className="login-control login-label">Email</label>
-                        <input type="text" className="login-control login-input" id="email" onChange={this.handleEmailChange.bind(this)}/>
+                        <TextField 
+                            type="text" 
+                            label="Email"
+                            id="email" 
+                            className="login-input"
+                            onChange={this.handleEmailChange.bind(this)}/>
                     </div>
                     <div className="login-input__container">
-                        <label htmlFor="password" className="login-control login-label">Password</label>
-                        <input type="text" className="login-control login-input" id="password"  onChange={this.handlePasswordChange.bind(this)}/>
+                        <TextField 
+                            type="password" 
+                            label="Password"
+                            id="password" 
+                            className="login-input" 
+                            onChange={this.handlePasswordChange.bind(this)}/>
                     </div>
                     <ButtonShared 
+                        classes="login-button"
                         label="Login"
                         onClick={this.handleSubmit.bind(this)}
                         value="/main"/>
-                    <button className="login-control login-button" onClick={this.handleSubmit.bind(this)}>Register</button>
+                    <ButtonShared 
+                        classes="login-control login-button" 
+                        label="Register"
+                        onClick={this.handleSubmit.bind(this)}/>
                 </div>
             </div>
         );
