@@ -8,7 +8,7 @@ import {
 import './root.styles.scss';
 
 import {
-    LOGIN_CUSTOMER_STORE
+    LOGIN_CUSTOMER_STORE, PRODUCT_STORE
 } from '../../constants';
 
 import { ShComponentsProvider } from '../../common/shared-components/shared-components-provider/sh-component-provider.component';
@@ -16,11 +16,14 @@ import { inject } from '../../services';
 import { Router } from 'react-router-dom';
 import { HomePage } from '../../view';
 import { INavigationService } from '../../services';
+import { ProductStore } from '../../stores/product-strore/product.store';
 
 const loginStore: LoginStore = new LoginStore();
+const productStore: ProductStore = new ProductStore();
 
 const rootStore = {
-    [LOGIN_CUSTOMER_STORE]: loginStore
+    [LOGIN_CUSTOMER_STORE]: loginStore,
+    [PRODUCT_STORE]: productStore
 };
 
 export class Root extends React.Component<{}, {}> {

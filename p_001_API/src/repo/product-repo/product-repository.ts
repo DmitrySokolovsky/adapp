@@ -1,4 +1,5 @@
-import { injectable, inject } from "inversify";
+import { injectable } from "inversify";
+import * as sequelize from 'sequelize';
 
 // import { LoggerService } from "../../service";
 // import { LogStatus } from "../../constant";
@@ -10,7 +11,8 @@ import { IProductRepo } from "./product-repo-interface";
 export class ProductRepository implements IProductRepo {
     public getAllProducts(): Promise<ProductModel[]> {
         return new Promise<ProductModel[]>((resolve, reject) => {
-            Product.sequelize.query('SELECT * FROM Products').then(result => resolve(result));
+            Product.sequelize.query('SELECT "name", "manufacturer" FROM "Product"', { type: sequelize.QueryTypes.SELECT })
+            .then(results => resolve(results as ProductModel[]));
         });
     }
 }

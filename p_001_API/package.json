@@ -46,6 +46,7 @@
     "@types/passport-jwt": "^3.0.1",
     "@types/passport-local": "^1.0.33",
     "@types/pg": "^7.4.9",
+    "@types/sequelize": "^4.27.23",
     "bcryptjs": "^2.4.3",
     "express": "^4.16.2",
     "express-session": "^1.15.6",

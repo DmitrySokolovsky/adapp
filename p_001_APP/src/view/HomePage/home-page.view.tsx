@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { MainPage } from '../MainPage/main-page.component';
 import { Login, Header } from '../../components';
-import { GalleryPage } from '../GalleryPage';
+import { OrderPage } from '../OrderPage';
 import { inject } from 'mobx-react';
 import { LOGIN_CUSTOMER_STORE } from '../../constants';
 import { LoginStore } from '../../stores';
@@ -39,7 +39,7 @@ export class HomePage extends React.Component<IHomePageProps, IHomePageState> {
             <div>
                 <Header />
                 <Switch>
-                    <Route exact path='/' component={GalleryPage} />
+                    <Route exact path='/' component={OrderPage} />
                     <Route path='/login' component={Login} />
                     <Route path="/main" component={MainPage} />
                 </Switch>

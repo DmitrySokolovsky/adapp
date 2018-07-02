@@ -8,7 +8,9 @@ import { inject } from 'inversify';
 
 @controller('/api/products')
 export class ProductController {
-    constructor(@inject(IProductRepo) private productRepo: IProductRepo) { }
+    constructor(
+        @inject(IProductRepo) private productRepo: IProductRepo
+    ) { }
 
     @httpGet('/')
     public getProducts(reguest: Request, response: Response): Promise<Response> {

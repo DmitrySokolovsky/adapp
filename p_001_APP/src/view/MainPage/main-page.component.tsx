@@ -20,6 +20,11 @@ export class MainPage extends React.Component<{}, {}> {
 
     public render(): JSX.Element {
         const userName = this.loginStore.customerData ? this.loginStore.customerData.name : 'none';
+        if (!this.loginStore.customerData) {
+            return (
+                <h1>...LOADING</h1>
+            );
+        }
 
         return (
             <h1>Hello {userName}</h1>
