@@ -19,23 +19,16 @@ export class Header extends React.Component {
         this.navigationService.navigateTo(value);
     }
 
+    public logOut(name: string, value: string): void {
+        this.loginStore.customerData = null;
+        localStorage.clear();
+        this.navigationService.navigateTo(value);
+    }
+
     public render(): JSX.Element {
         return (
             <AppBar position="static" color="default">
                 <ul className="navigation">
-                    <li className="navigation-item">
-                        {
-                            this.loginStore.customerData ?
-
-                                <ButtonShared
-                                    label="MAIN PAGE"
-                                    value="/main"
-                                    classes="navigation__button"
-                                    onClick={this.menuBtnClick.bind(this)} />
-                                :
-                                null
-                        }
-                    </li>
                     <li className="navigation-item">
                         {
                             !this.loginStore.customerData ?
@@ -43,7 +36,10 @@ export class Header extends React.Component {
                                     label="Login"
                                     value="/login"
                                     onClick={this.menuBtnClick.bind(this)} /> :
-                                null
+                                <ButtonShared
+                                    label="Logout"
+                                    value="/"
+                                    onClick={this.logOut.bind(this)}/>
                         }
 
                     </li>

@@ -1,4 +1,4 @@
-import { CustomerAddModel, Customer, CustomerLoginModel } from "../../models/customer-models.model";
+import { CustomerModel, Customer } from "../../models/customer-models.model";
 import { ICustomerRepo } from "./customer-repo-interface";
 import { injectable, inject } from "inversify";
 import { LoggerService } from "../../service";
@@ -12,7 +12,7 @@ export class CustomerRepository implements ICustomerRepo {
         this.loggerService.log(`Customer Repository usage`, LogStatus.INFO);
     }
 
-    public addCustomer(oParams: CustomerAddModel): Promise<Customer[]> {
+    public addCustomer(oParams: CustomerModel): Promise<Customer[]> {
         return new Promise<Customer[]>((resolve, reject) => {
             Customer.create(oParams).then(
                 (res) => {
@@ -26,11 +26,11 @@ export class CustomerRepository implements ICustomerRepo {
         });
     }
 
-    public customerLogInCheck(oParams: CustomerLoginModel): Promise<Customer> {
+    public customerLogInCheck(oParams: CustomerModel): Promise<Customer> {
         return new Promise<Customer>((resolve, reject) => {
             Customer.findOne({
                 where: {
-                    email: oParams.email,
+                    name: oParams.name,
                     password: oParams.password
                 }
             }).then(res => resolve(res)).catch(error => this.loggerService.log(error.errmsg, LogStatus.ERROR));
@@ -43,7 +43,7 @@ export class CustomerRepository implements ICustomerRepo {
         return new Promise<Customer>((resolve, reject) => {
             Customer.findOne({
                 where: {
-                    email: email
+                    name: name
                 }
             }).then((res) => resolve(res)).catch(error => reject(this.loggerService.log(error.errmsg, LogStatus.ERROR)));
         });

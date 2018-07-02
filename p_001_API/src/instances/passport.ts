@@ -14,7 +14,7 @@ passport.use(new Strategy(params, (payload, done) => {
     console.log(payload, "passport.js");
     Customer.findOne({
         where: {
-            email: payload
+            name: payload
         }
-    }).then(result => done(null, { email: result.email })).catch(err => done(err, null));
+    }).then(result => done(null, { name: result.name })).catch(err => done(err, null));
 }));

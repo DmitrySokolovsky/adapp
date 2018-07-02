@@ -14,27 +14,10 @@ export class Customer extends Model<Customer> {
     public name: string;
 
     @Column
-    public company: string;
-
-    @Column
-    public phone: string;
-
-    @Column
-    public email: string;
-
-    @Column
     public password: string;
 }
 
-export abstract class CustomerAddModel {
+export abstract class CustomerModel {
     public name: string;
-    public company: string;
-    public phone: string;
-    public email: string;
-    public password: string;
-}
-
-export abstract class CustomerLoginModel {
-    public email: string;
     public password: string;
 }

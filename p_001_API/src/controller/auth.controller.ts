@@ -21,7 +21,7 @@ export class AuthController {
         console.log(request.user, "request.body*******************************");
 
         return new Promise<Response>((resolve, reject) => {
-            resolve(this.customerRepo.getCustomerWithEmail(request.user.email).then(data => response.json(data)).catch((err) => response.send(err)));
+            resolve(this.customerRepo.getCustomerWithEmail(request.user.name).then(data => response.json(data)).catch((err) => response.send(err)));
             reject(this.loggerService.log('Unhandled error', LogStatus.ERROR));
         });
     }

@@ -16,14 +16,14 @@ export class Login extends React.Component<ILoginProps, ILoginState> {
     constructor(props: ILoginProps) {
         super(props);
         this.state = {
-            loading: true
+            loading: false
         };
     }
 
     @inversifyInject(INavigationService) public navigationService: INavigationService;
 
     handleEmailChange(e: React.SyntheticEvent<HTMLInputElement>): void {
-        this.loginStore.setCustomerLogInEmail(e.currentTarget.value);
+        this.loginStore.setCustomerLogInName(e.currentTarget.value);
     }
 
     handlePasswordChange(e: React.SyntheticEvent<HTMLInputElement>): void {
@@ -31,6 +31,9 @@ export class Login extends React.Component<ILoginProps, ILoginState> {
     }
 
     handleSubmit(name: string, value: string) {
+        this.setState({
+            loading: true
+        });
         this.loginStore.login().then(() => this.navigationService.navigateTo(value));
     }
 
@@ -53,8 +56,8 @@ export class Login extends React.Component<ILoginProps, ILoginState> {
                     <div className="login-input__container">
                         <TextField 
                             type="text" 
-                            label="Email"
-                            id="email" 
+                            label="Name"
+                            id="name" 
                             className="login-input"
                             onChange={this.handleEmailChange.bind(this)}/>
                     </div>

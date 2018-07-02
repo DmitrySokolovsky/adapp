@@ -1,7 +1,7 @@
 import { controller, httpGet, httpPost, httpPut } from 'inversify-express-utils';
 import { Request, Response } from 'express';
 import { ICustomerRepo } from '../repo';
-import { CustomerAddModel } from '../models';
+import { CustomerModel } from '../models';
 import { inject } from 'inversify';
 import { LoggerService } from '../service';
 import { LogStatus } from '../constant';
@@ -24,11 +24,8 @@ export class CustomerController {
     @httpPost('/')
     public postSmth(request: Request, response: Response): Promise<Response> {
         const oParams = request.body;
-        const params: CustomerAddModel = {
+        const params: CustomerModel = {
             name: oParams.name,
-            company: oParams.company,
-            phone: oParams.phone,
-            email: oParams.email,
             password: oParams.email
         };
 
