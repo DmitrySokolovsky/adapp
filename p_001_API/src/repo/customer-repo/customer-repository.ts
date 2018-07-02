@@ -37,8 +37,8 @@ export class CustomerRepository implements ICustomerRepo {
         });
     }
 
-    public getCustomerWithEmail(email: string): Promise<Customer> {
-        console.log(email, "EMAIL EMAIL EMAIL ");
+    public getCustomerWithName(name: string): Promise<Customer> {
+        console.log(name, "EMAIL EMAIL EMAIL ");
         
         return new Promise<Customer>((resolve, reject) => {
             Customer.findOne({

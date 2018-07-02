@@ -18,10 +18,8 @@ export class AuthController {
 
     @httpPost('/')
     public getAuthData(request: Request, response: Response): Promise<Response> {
-        console.log(request.user, "request.body*******************************");
-
         return new Promise<Response>((resolve, reject) => {
-            resolve(this.customerRepo.getCustomerWithEmail(request.user.name).then(data => response.json(data)).catch((err) => response.send(err)));
+            resolve(this.customerRepo.getCustomerWithName(request.user.name).then(data => response.json(data)).catch((err) => response.send(err)));
             reject(this.loggerService.log('Unhandled error', LogStatus.ERROR));
         });
     }
