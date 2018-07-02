@@ -12,7 +12,7 @@ import { CONTAINER } from './service/services-regestration';
 
 import './controller';
 
-import { Customer } from './models/customer-models.model';
+import { Customer, Product } from './models';
 import { sequelize } from './instances';
 
 import './instances/passport';
@@ -24,7 +24,7 @@ sequelize.authenticate().then(() => {
         LogStatus.INFO);
     logger.log('Press CTRL+C to stop\n', LogStatus.INFO);
 });
-sequelize.addModels([Customer]);
+sequelize.addModels([Customer, Product]);
 sequelize.sync();
 
 let server = new InversifyExpressServer(CONTAINER);
