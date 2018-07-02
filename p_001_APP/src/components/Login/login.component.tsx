@@ -73,7 +73,7 @@ export class Login extends React.Component<ILoginProps, ILoginState> {
                         classes="login-button"
                         label="Login"
                         onClick={this.handleSubmit.bind(this)}
-                        value="/main"/>
+                        value="/"/>
                     <ButtonShared 
                         classes="login-control login-button" 
                         label="Register"

@@ -2,16 +2,24 @@ import * as React from "react";
 //import { Paper } from "material-ui";
 // import { LoggedContent } from "../../components";
 import { inject as injectStore, observer } from 'mobx-react';
-import { LOGIN_CUSTOMER_STORE } from "../../constants";
+import { LOGIN_CUSTOMER_STORE, PRODUCT_STORE } from "../../constants";
 import { LoginStore } from "../../stores";
+import { ProductStore } from "../../stores/product-strore/product.store";
+import './main-page.style.scss';
+import { ProductList } from "../../components/ProductList/product-list.component";
 
-@injectStore(LOGIN_CUSTOMER_STORE)
+@injectStore(LOGIN_CUSTOMER_STORE, PRODUCT_STORE)
 @observer
 export class MainPage extends React.Component<{}, {}> {
     private loginStore: LoginStore = this.props[LOGIN_CUSTOMER_STORE];
+    private productStore: ProductStore = this.props[PRODUCT_STORE];
 
     constructor(props: {}) {
         super(props);
+    }
+
+    setProds() {
+        this.productStore.setProducts();
     }
 
     componentDidMount() {
@@ -27,7 +35,12 @@ export class MainPage extends React.Component<{}, {}> {
         }
 
         return (
-            <h1>Hello {userName}</h1>
+            <div>
+                <h1>THIS IS MAIN PAGE <br /> USER SEE IT IF HE's LOGGED IN <br /> {userName}</h1>
+                <ProductList/>
+            </div>
+            
+            
         );
     }
 }

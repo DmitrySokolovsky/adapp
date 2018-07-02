@@ -1,13 +1,11 @@
 import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { MainPage } from '../MainPage/main-page.component';
 import { Login, Header } from '../../components';
 import { OrderPage } from '../OrderPage';
 import { inject } from 'mobx-react';
 import { LOGIN_CUSTOMER_STORE } from '../../constants';
 import { LoginStore } from '../../stores';
 import { IHomePageProps, IHomePageState } from './home-page.interface';
-//import { BarLoader } from 'react-spinners';
 
 @inject(LOGIN_CUSTOMER_STORE)
 export class HomePage extends React.Component<IHomePageProps, IHomePageState> {
@@ -41,7 +39,6 @@ export class HomePage extends React.Component<IHomePageProps, IHomePageState> {
                 <Switch>
                     <Route exact path='/' component={OrderPage} />
                     <Route path='/login' component={Login} />
-                    <Route path="/main" component={MainPage} />
                 </Switch>
             </div>
         );
