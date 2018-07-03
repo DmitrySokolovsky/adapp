@@ -27,8 +27,20 @@ export class Header extends React.Component {
 
     public render(): JSX.Element {
         return (
-            <AppBar position="static" color="default">
-                <ul className="navigation">
+            <AppBar position="static" color="default" className="header">
+                {
+                    this.loginStore.customerData ?
+                    <ul className="navigation__main">
+                        <li className="navigation-item">
+                            <ButtonShared
+                                label="Food list"
+                                value="/product_list"
+                                onClick={this.menuBtnClick.bind(this)} />
+                        </li>
+                    </ul> :
+                    null
+                }
+                <ul className="navigation__login">
                     <li className="navigation-item">
                         {
                             !this.loginStore.customerData ?
@@ -39,7 +51,7 @@ export class Header extends React.Component {
                                 <ButtonShared
                                     label="Logout"
                                     value="/"
-                                    onClick={this.logOut.bind(this)}/>
+                                    onClick={this.logOut.bind(this)} />
                         }
 
                     </li>

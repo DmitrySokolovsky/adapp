@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { Login, Header } from '../../components';
+import { Login, Header, ProductList } from '../../components';
 import { OrderPage } from '../OrderPage';
 import { inject } from 'mobx-react';
 import { LOGIN_CUSTOMER_STORE } from '../../constants';
@@ -39,6 +39,7 @@ export class HomePage extends React.Component<IHomePageProps, IHomePageState> {
                 <Switch>
                     <Route exact path='/' component={OrderPage} />
                     <Route path='/login' component={Login} />
+                    <Route path='/product_list' component={ProductList} />
                 </Switch>
             </div>
         );

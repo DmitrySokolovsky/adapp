@@ -1,13 +1,22 @@
-.navigation {
+.navigation__login {
     display: flex;
     flex-direction: row;
     list-style: none;
 
-    &-item {
+    .navigation-item {
         padding: 0 15px;
+        list-style: none;
     }
 
-    &__button span{
+    .navigation__button span{
         font-weight: bold;
     }
+}
+
+header.header {
+    flex-direction: row;
+}
+
+.navigation__main {
+    flex-grow: 1;
 }

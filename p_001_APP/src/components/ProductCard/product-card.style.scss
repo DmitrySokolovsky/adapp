@@ -6,4 +6,12 @@
         width: 100%;
         height: 10rem;
     }
+
+    &__actions {
+        margin-left: 1rem;
+    }
+
+    &-selected {
+        outline: 1px solid #3f51b5;
+    }
 }

@@ -5,5 +5,5 @@ export interface IProductCardProps {
 }
 
 export interface IProductCardState {
-    
+    selected: boolean;
 }
