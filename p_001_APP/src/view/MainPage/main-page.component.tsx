@@ -4,7 +4,6 @@ import * as React from "react";
 import { inject as injectStore, observer } from 'mobx-react';
 import { LOGIN_CUSTOMER_STORE, PRODUCT_STORE } from "../../constants";
 import { LoginStore } from "../../stores";
-import { ProductStore } from "../../stores/product-strore/product.store";
 import './main-page.style.scss';
 import { ProductList } from "../../components/ProductList/product-list.component";
 
@@ -12,25 +11,17 @@ import { ProductList } from "../../components/ProductList/product-list.component
 @observer
 export class MainPage extends React.Component<{}, {}> {
     private loginStore: LoginStore = this.props[LOGIN_CUSTOMER_STORE];
-    private productStore: ProductStore = this.props[PRODUCT_STORE];
+   // private productStore: ProductStore = this.props[PRODUCT_STORE];
 
     constructor(props: {}) {
         super(props);
-    }
-
-    setProds() {
-        this.productStore.setProducts();
-    }
-
-    componentDidMount() {
-        this.loginStore.setCustomerData();
     }
 
     public render(): JSX.Element {
         const userName = this.loginStore.customerData ? this.loginStore.customerData.name : 'none';
         if (!this.loginStore.customerData) {
             return (
-                <h1>...LOADING</h1>
+                <div className="preloader"><h1>>>>LOADING</h1></div>
             );
         }
 
@@ -38,9 +29,7 @@ export class MainPage extends React.Component<{}, {}> {
             <div>
                 <h1>THIS IS MAIN PAGE <br /> USER SEE IT IF HE's LOGGED IN <br /> {userName}</h1>
                 <ProductList/>
-            </div>
-            
-            
+            </div>            
         );
     }
 }
