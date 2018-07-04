@@ -11,5 +11,5 @@ export class Group extends Model<Group> {
 
     @ForeignKey(() => Customer)
     @Column
-    public customerCreatorId: number;
+    public customer_creator_id: number;
 }

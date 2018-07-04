@@ -1,4 +1,4 @@
-import { controller, httpGet, httpPost, httpPut } from 'inversify-express-utils';
+import { controller, httpGet } from 'inversify-express-utils';
 import { Request, Response } from 'express';
 import { IProductRepo } from '../repo';
 // import { ProductModel } from '../models';

@@ -15,13 +15,23 @@ export class Order extends Model<Order> {
 
     @ForeignKey(() => Customer)
     @Column
-    public customerId: number;
+    public customer_id: number;
 
     @ForeignKey(() => Product)
     @Column
-    public productId: number;
+    public product_id: number;
 
     @ForeignKey(() => Group)
     @Column
-    public groupId: number;
+    public group_id: number;
+
+    @Column
+    public count: number;
+}
+
+export abstract class OrderModel {
+    public customerName: string;
+    public productName: string;
+    public productManufacturer: string;
+    public count: number;
 }
