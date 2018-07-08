@@ -8,6 +8,7 @@ export class LoginStore {
     @inject(INavigationService) public navService: INavigationService;
 
     @observable public customerCreds: CustomerModel = {
+        id: 0,
         name: '',
         password: ''
     }

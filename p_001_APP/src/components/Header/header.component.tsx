@@ -3,9 +3,10 @@ import { AppBar } from 'material-ui';
 import './header.style.scss';
 import { inject, observer } from 'mobx-react';
 import { inject as inversifyInject, INavigationService } from '../../services';
-import { LOGIN_CUSTOMER_STORE } from '../../constants';
+import { LOGIN_CUSTOMER_STORE, BASE_API_URL } from '../../constants';
 import { LoginStore } from '../../stores';
 import { ButtonShared } from '../../common/shared-components/sh-button/button.shared';
+import axios from 'axios';
 
 @inject(LOGIN_CUSTOMER_STORE)
 @observer
@@ -25,6 +26,14 @@ export class Header extends React.Component {
         this.navigationService.navigateTo(value);
     }
 
+    private onTest() {
+        if (this.loginStore.customerData) {
+            let id = this.loginStore.customerData.id;
+            axios.post(BASE_API_URL + '/order', {id: id}).then(() => alert("Done"));
+        }
+        
+    }
+
     public render(): JSX.Element {
         return (
             <AppBar position="static" color="default" className="header">
@@ -41,6 +50,9 @@ export class Header extends React.Component {
                     null
                 }
                 <ul className="navigation__login">
+                    <ButtonShared
+                        label="Test Order"
+                        onClick={this.onTest.bind(this)}/>
                     <li className="navigation-item">
                         {
                             !this.loginStore.customerData ?
