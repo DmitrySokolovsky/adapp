@@ -1,7 +1,7 @@
 import { observable, action } from 'mobx';
 import { inject } from '../../services/services-regestration';
 import { ILoginPepo, INavigationService } from '../../services';
-import { CustomerModel } from '../../models';
+import { CustomerModel, CustomerDataModel } from '../../models';
 
 export class LoginStore {
     @inject(ILoginPepo) public loginRepository: ILoginPepo;
@@ -13,7 +13,7 @@ export class LoginStore {
         password: ''
     }
 
-    @observable public customerData: CustomerModel | null = null;
+    @observable public customerData: CustomerDataModel | null = null;
 
     @action public setCustomerLogInName(name: string): void {
         this.customerCreds.name = name;

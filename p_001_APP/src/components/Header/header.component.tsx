@@ -26,14 +26,6 @@ export class Header extends React.Component {
         this.navigationService.navigateTo(value);
     }
 
-    private onTest() {
-        if (this.loginStore.customerData) {
-            let id = this.loginStore.customerData.id;
-            axios.post(BASE_API_URL + '/order', {id: id}).then(() => alert("Done"));
-        }
-        
-    }
-
     public render(): JSX.Element {
         return (
             <AppBar position="static" color="default" className="header">
@@ -50,9 +42,6 @@ export class Header extends React.Component {
                     null
                 }
                 <ul className="navigation__login">
-                    <ButtonShared
-                        label="Test Order"
-                        onClick={this.onTest.bind(this)}/>
                     <li className="navigation-item">
                         {
                             !this.loginStore.customerData ?
