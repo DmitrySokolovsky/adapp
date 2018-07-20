@@ -3,10 +3,9 @@ import { AppBar } from 'material-ui';
 import './header.style.scss';
 import { inject, observer } from 'mobx-react';
 import { inject as inversifyInject, INavigationService } from '../../services';
-import { LOGIN_CUSTOMER_STORE, BASE_API_URL } from '../../constants';
+import { LOGIN_CUSTOMER_STORE } from '../../constants';
 import { LoginStore } from '../../stores';
 import { ButtonShared } from '../../common/shared-components/sh-button/button.shared';
-import axios from 'axios';
 
 @inject(LOGIN_CUSTOMER_STORE)
 @observer

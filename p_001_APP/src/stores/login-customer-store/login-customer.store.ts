@@ -39,6 +39,7 @@ export class LoginStore {
         if(token) {
             this.loginRepository.getCustomerDataWithToken(token)
                 .then((response) => {
+                    console.log(response);
                     this.customerData = response;
                 }
             );

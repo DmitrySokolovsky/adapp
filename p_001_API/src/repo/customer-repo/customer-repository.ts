@@ -3,6 +3,7 @@ import { ICustomerRepo } from "./customer-repo-interface";
 import { injectable, inject } from "inversify";
 import { LoggerService } from "../../service";
 import { LogStatus } from "../../constant";
+import { sequelize } from "../../instances";
 //import { reject } from "bluebird";
 
 @injectable()
@@ -41,7 +42,7 @@ export class CustomerRepository implements ICustomerRepo {
         console.log(name, "EMAIL EMAIL EMAIL ");
         
         return new Promise<Customer>((resolve, reject) => {
-            Customer.sequelize.query('"SELECT id , name FROM "Customer"')
+            Customer.sequelize.query('SELECT id , name FROM "Customer"', {type: sequelize.QueryTypes.SELECT})
             .then((res) => resolve(res))
             .catch(error => reject(this.loggerService.log(error.errmsg, LogStatus.ERROR)));
         });
