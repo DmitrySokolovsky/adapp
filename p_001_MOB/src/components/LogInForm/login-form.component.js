@@ -5,7 +5,10 @@ export class LogInForm extends React.Component {
     render() {
         return (
             <View style={logInFormStyle.loginContainer}>
-
+                <Text>
+                    Hello from log
+                    
+                </Text>
             </View>
         );
     }

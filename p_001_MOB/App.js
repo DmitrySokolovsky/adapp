@@ -8,8 +8,10 @@
 
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
-import { Main } from './src/screens';
 import Test from './Test';
+import { createStackNavigator } from 'react-navigation';
+import { Main } from './src/screens/Main/main.screen';
+import { LogInForm } from './src/components/LogInForm/login-form.component';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -18,13 +20,19 @@ const instructions = Platform.select({
     'Shake or press menu button for dev menu',
 });
 
+const RootStack = createStackNavigator(
+    {
+        Main: {screen: Main},
+        Login: {screen: LogInForm}
+    },
+    {
+      headerMode: 'none'
+    }
+);
+
 export default class App extends Component {
   render() {
-    return (
-      <View style={styles.container}>
-        <Main/>
-      </View>
-    );
+    return <RootStack /> ;
   }
 }
 

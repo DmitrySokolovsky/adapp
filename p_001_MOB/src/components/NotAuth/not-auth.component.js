@@ -2,21 +2,25 @@ import React, {
     Component
 } from 'react';
 import { View, StyleSheet, Text, TouchableHighlight,ToastAndroid } from 'react-native';
+import { createStackNavigator } from 'react-navigation';
 
 export class NoAuth extends Component {
+    componentDidMount() {
+        if(this.props) {
+            this.props;
+        }
+    }
+
     onLoginPress() {
-        ToastAndroid.showWithGravity(
-            'All Your Base Are Belong To Us',
-            ToastAndroid.SHORT,
-            ToastAndroid.BOTTOM
-          );
+        this.props.navigation.navigate('Login');
     }
 
     render() {
+       // const { navigate } = this.props.navigation;
         return (
             <View style={noAuthStyle.noAuthContainer}>
                 <Text style={noAuthStyle.text}>You are not logged in</Text>
-                <TouchableHighlight onPress={this.onLoginPress}>
+                <TouchableHighlight onPress={() => this.onLoginPress()}>
                     <View style={noAuthStyle.loginBtn}>
                         <Text style={noAuthStyle.text}>LOG IN</Text>
                     </View>                   

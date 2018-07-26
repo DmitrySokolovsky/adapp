@@ -17,7 +17,7 @@ export class Main extends Component {
         return (
             <View style={mainStyles.mainContainer}>
                 {
-                    userData ? '' : <NoAuth/>
+                    userData ? '' : <NoAuth navigation={this.props.navigation}/>
                 }
                 
             </View>
