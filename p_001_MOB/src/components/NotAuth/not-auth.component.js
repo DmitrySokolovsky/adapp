@@ -1,16 +1,10 @@
 import React, {
     Component
 } from 'react';
-import { View, StyleSheet, Text, TouchableHighlight,ToastAndroid } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity,ToastAndroid } from 'react-native';
 import {connect} from 'react-redux';
 
 class NoAuthComponent extends Component {
-    componentDidMount() {
-        if(this.props) {
-            this.props;
-        }
-    }
-
     onLoginPress() {
         this.props.navRouter.navigate('Login');
     }
@@ -19,17 +13,17 @@ class NoAuthComponent extends Component {
         return (
             <View style={noAuthStyle.noAuthContainer}>
                 <Text style={noAuthStyle.text}>You are not logged in</Text>
-                <TouchableHighlight onPress={() => this.onLoginPress()}>
+                <TouchableOpacity onPress={() => this.onLoginPress()}>
                     <View style={noAuthStyle.loginBtn}>
                         <Text style={noAuthStyle.text}>LOG IN</Text>
                     </View>                   
-                </TouchableHighlight>
+                </TouchableOpacity>
                 <Text style={noAuthStyle.text}>...Or</Text>
-                <TouchableHighlight>
+                <TouchableOpacity>
                     <View style={noAuthStyle.loginBtn}>
                         <Text style={noAuthStyle.text}>Register</Text>
                     </View>                   
-                </TouchableHighlight>                 
+                </TouchableOpacity>                 
             </View>
         );
     }

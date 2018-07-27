@@ -1,6 +1,7 @@
 import {
     LOG_OUT,
-    AUTH
+    AUTH,
+    SET_USER_DATA
 } from '../actions';
 
 const initialState = {
@@ -20,6 +21,12 @@ export function initAuthReducer(state = initialState, action) {
             return {
                 ...state,
                 userData: null
+            }
+
+        case SET_USER_DATA:
+            return {
+                ...state,
+                userData: action.payload
             }
 
         default:
