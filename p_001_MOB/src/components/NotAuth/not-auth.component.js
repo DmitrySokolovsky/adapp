@@ -2,9 +2,9 @@ import React, {
     Component
 } from 'react';
 import { View, StyleSheet, Text, TouchableHighlight,ToastAndroid } from 'react-native';
-import { createStackNavigator } from 'react-navigation';
+import {connect} from 'react-redux';
 
-export class NoAuth extends Component {
+class NoAuthComponent extends Component {
     componentDidMount() {
         if(this.props) {
             this.props;
@@ -12,11 +12,10 @@ export class NoAuth extends Component {
     }
 
     onLoginPress() {
-        this.props.navigation.navigate('Login');
+        this.props.navRouter.navigate('Login');
     }
 
     render() {
-       // const { navigate } = this.props.navigation;
         return (
             <View style={noAuthStyle.noAuthContainer}>
                 <Text style={noAuthStyle.text}>You are not logged in</Text>
@@ -62,3 +61,12 @@ const noAuthStyle = StyleSheet.create({
         backgroundColor: 'white'
     }
 });
+
+const mapStateToProps = (state) => {
+    let navRouter = state.nav.navRouter;
+    return {
+        navRouter
+    };
+};
+
+export const NoAuth = connect(mapStateToProps)(NoAuthComponent);

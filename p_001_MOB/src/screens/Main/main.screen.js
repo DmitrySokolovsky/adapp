@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { NoAuth } from '../../components';
+import {connect} from 'react-redux';
+import {
+    setNavigation
+} from '../../store/actions';
 
-export class Main extends Component {
+class MainComponent extends Component {
     constructor(props) {
         super(props);
 
@@ -11,19 +15,37 @@ export class Main extends Component {
         };
     }
 
+    componentDidMount() {
+        let navObject = this.props.navigation;
+        this.props.setNavigation(navObject);
+    }
+
     render() {
         let userData = this.state.userData;
 
         return (
             <View style={mainStyles.mainContainer}>
                 {
-                    userData ? '' : <NoAuth navigation={this.props.navigation}/>
+                    userData ? '' : <NoAuth />
                 }
                 
             </View>
         );
     }
 }
+
+const mapStateToProps = (state) => {
+    let navRouter = state.nav.navRouter;
+    return {
+        navRouter
+    };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+    setNavigation: (value) => {
+        dispatch(setNavigation(value));
+    }
+});
 
 const mainStyles = StyleSheet.create({
     mainContainer: {
@@ -34,3 +56,5 @@ const mainStyles = StyleSheet.create({
         backgroundColor: '#999'
     }
 });
+
+export const Main = connect(mapStateToProps, mapDispatchToProps)(MainComponent);
