@@ -61,7 +61,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
     logIn: (creds) => {
-        console.log(creds);
         dispatch(logIn(creds));
     }
 });

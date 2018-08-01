@@ -36,8 +36,10 @@ class MainComponent extends Component {
 
 const mapStateToProps = (state) => {
     let navRouter = state.nav.navRouter;
+    let userData = state.auth.userData;
     return {
-        navRouter
+        navRouter,
+        userData
     };
 };
 
