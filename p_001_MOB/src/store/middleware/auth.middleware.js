@@ -11,7 +11,8 @@ const authMiddleWare = store => next => action => {
         AuthService.getToken(userCreds)
             .then((response) => {
                 if(response) {
-                    setToAsyncStorage(response.data);
+                    console.log(response.token);
+                    setToAsyncStorage(response);
                 }
             });
     }
@@ -21,7 +22,7 @@ const authMiddleWare = store => next => action => {
 
 async function setToAsyncStorage(params) {
     try {
-        await AsyncStorage.setItem("tocken", params);
+        await AsyncStorage.setItem("token", params);
     } catch(err) {
         console.log(err);
     }
