@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 
 class NoAuthComponent extends Component {
     onLoginPress() {
+        console.log(this.props);
         this.props.navRouter.navigate('Login');
     }
 
@@ -58,8 +59,12 @@ const noAuthStyle = StyleSheet.create({
 
 const mapStateToProps = (state) => {
     let navRouter = state.nav.navRouter;
+    let storage = state.storage.storage;
+    let userData = state.auth.userData;
     return {
-        navRouter
+        navRouter,
+        storage,
+        userData
     };
 };
 

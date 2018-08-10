@@ -18,9 +18,8 @@ export function logOut(payload) {
     }
 }
 
-export function authUser(payload) {
+export function authUser() {
     return {
-        type: AUTH,
-        payload
+        type: AUTH
     }
 }

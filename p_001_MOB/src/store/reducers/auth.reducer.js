@@ -1,21 +1,22 @@
 import {
     LOG_OUT,
     AUTH,
-    SET_USER_DATA
+    SET_USER_TOKEN
 } from '../actions';
 
 const initialState = {
     state: 'INITIAL',
-    userData: null
+    userData: null,
+    userToken: null
 };
 
 export function initAuthReducer(state = initialState, action) {
     switch (action.type) {
-        case AUTH:
-            return {
-                ...state,
-                userData: action.payload
-            }
+        // case AUTH:
+        //     return {
+        //         ...state,
+        //         userData: action.payload
+        //     }
 
         case LOG_OUT: 
             return {
@@ -23,10 +24,10 @@ export function initAuthReducer(state = initialState, action) {
                 userData: null
             }
 
-        case SET_USER_DATA:
+        case SET_USER_TOKEN:
             return {
                 ...state,
-                userData: action.payload
+                userToken: action.payload
             }
 
         default:

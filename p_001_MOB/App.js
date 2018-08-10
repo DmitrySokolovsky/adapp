@@ -3,13 +3,14 @@ import { tfStore } from './src/store';
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
 import { createStackNavigator } from 'react-navigation';
-import { Main } from './src/screens/Main/main.screen';
+import { Main, HomeScreen } from './src/screens';
 import { LogInForm } from './src/components/LogInForm/login-form.component';
 
 const RootStack = createStackNavigator(
     {
         Main: {screen: Main},
-        Login: {screen: LogInForm}
+        Login: {screen: LogInForm},
+        Home: {screen: HomeScreen}
     },
     {
       headerMode: 'none'

@@ -18,6 +18,15 @@ class LogInFormComponent extends React.Component {
             name: login,
             password: password
         });
+        console.log(this.props);
+    }
+
+    componentDidUpdate() {
+        console.log(this.props.userToken);
+        if (this.props.userToken) {
+            console.log("FIRE");
+            this.props.navRouter.navigate('Home');
+        }
     }
 
     render() {
@@ -27,7 +36,7 @@ class LogInFormComponent extends React.Component {
                 <TextInput placeholder="password" style={logInFormStyle.loginTextInput} onChangeText={(text) => this.setState({ password: text })}/>
                 <TouchableOpacity onPress={() => this.onLoginPress()}>
                     <Text style={logInFormStyle.loginBtn}>LOG IN</Text>
-                </TouchableOpacity>                
+                </TouchableOpacity>
             </View>
         );
     }
@@ -54,8 +63,12 @@ const logInFormStyle = StyleSheet.create({
 
 const mapStateToProps = (state) => {
     let userData = state.auth.userData;
+    let userToken = state.auth.userToken;
+    let navRouter = state.nav.navRouter;
     return {
-        userData
+        userData,
+        navRouter,
+        userToken
     };
 };
 

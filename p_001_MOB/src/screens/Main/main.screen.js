@@ -1,34 +1,37 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { NoAuth } from '../../components';
+import Storage from 'react-native-storage';
 import {connect} from 'react-redux';
+import { AsyncStorage } from "react-native";
 import {
-    setNavigation
+    setNavigation,
+    setStorage
 } from '../../store/actions';
 
 class MainComponent extends Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            userData: null
-        };
     }
 
     componentDidMount() {
         let navObject = this.props.navigation;
         this.props.setNavigation(navObject);
+
+        const appStorage = new Storage({
+            size: 500,
+            storageBackend: AsyncStorage,
+            defaultExpires: 1000 * 3600,
+            enableCache: true
+        });
+
+        this.props.setStorage(appStorage);
     }
 
     render() {
-        let userData = this.state.userData;
-
         return (
             <View style={mainStyles.mainContainer}>
-                {
-                    userData ? '' : <NoAuth />
-                }
-                
+                <NoAuth />
             </View>
         );
     }
@@ -36,16 +39,19 @@ class MainComponent extends Component {
 
 const mapStateToProps = (state) => {
     let navRouter = state.nav.navRouter;
-    let userData = state.auth.userData;
+    let storage = state.storage.storage;
     return {
         navRouter,
-        userData
+        storage
     };
 };
 
 const mapDispatchToProps = (dispatch) => ({
     setNavigation: (value) => {
         dispatch(setNavigation(value));
+    },
+    setStorage: (value) => {
+        dispatch(setStorage(value));
     }
 });
 
