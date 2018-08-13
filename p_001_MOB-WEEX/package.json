@@ -29,7 +29,7 @@
   "license": "MIT",
   "dependencies": {
     "phantom-limb": "0.0.1",
-    "vue": "^2.5.11",
+    "vue": "^2.5.17",
     "weex-vue-render": "^0.12.26"
   },
   "devDependencies": {
