@@ -28,6 +28,7 @@
   ],
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.18.0",
     "phantom-limb": "0.0.1",
     "vue": "^2.5.17",
     "weex-vue-render": "^0.12.26"

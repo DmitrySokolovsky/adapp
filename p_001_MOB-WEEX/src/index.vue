@@ -1,69 +1,111 @@
 <template>
-  <div class="wrapper">
-    <text>{{state}}</text>
-    <div @click="setData">
-      <text>SET</text>
+    <div class="wrapper-main">
+      <div class="greet"><text class="greet-text">Hello, please login</text></div>
+      <div class="wrapper">
+        <input class="input" value="" v-model="login" placeholder="LOGIN"/>
+      </div>
+      <div class="wrapper">
+        <input type="password" class="input" v-model="password" value="" placeholder="PASSWORD"/>
+      </div>
+      <div class="btn" v-on:click="getData">
+          <text class="btn-text">LOGIN</text>
+      </div>
     </div>
-    <div @click="getData">
-      <text>GET</text>
-    </div>
-    <text class="greeting">The environment is ready!</text>
-    <HelloWorld/>
-  </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
-//import { weex } from "weex";
+import HelloWorld from './components/HelloWorld.vue';
+import axios from 'axios';
 
 const storage = weex.requireModule('storage');
-const modal = weex.requireModule('modal');
+
+var navigator = weex.requireModule('navigator');
+var modal = weex.requireModule('modal');
+var bundleUrl = weex.config.bundleUrl;
 
 export default {
-  name: "App",
-  components: {
-    HelloWorld
-  },
-  data() {
-    return {
-      state: '---'
-    };
-  },
-  methods: {
-    setData() {
-      storage.setItem('name', 'Hanks', event => {
-          this.state = 'set success';
-          console.log('set success');
-      });
+    name: 'App',
+    components: {
+        'hello': HelloWorld
     },
-    getData() {
-        storage.getItem('name', event => {
-            console.log('get value:', event.data);
-            this.state = 'value: ' + event.data;
-        });
+    data() {
+        return {
+            state: '---',
+            login: '',
+            password: ''
+        };
+    },
+
+    methods: {
+        setData() {
+            storage.setItem('name', 'Hanks', event => {
+                this.state = 'set success';
+                console.log('set success');
+            });
+        },
+        getData() {
+        // storage.getItem('name', event => {
+        //     console.log('get value:', event.data);
+        //     this.state = 'value: ' + event.data;
+        // });
+
+            console.log(this.login, this.password);
+        },
+        goHello() {
+            navigator.push({
+                url: 'http://10.5.9.46:8081/components/HelloWorld.html',
+                animated: 'true'
+                }, event => {
+                    modal.toast({ message: 'callback: ' + event })
+                }
+            );
+        },
+        onLoginInput(event) {
+            axios.post();
+        },
+        onchange(event) {
+            console.log(event);
+        }
     }
-  }
 };
 </script>
 
-<style scoped>
-.wrapper {
+<style>
+.wrapper-main {
+  display: flex;
   justify-content: center;
   align-items: center;
 }
-.logo {
-  width: 424px;
-  height: 200px;
+
+.wrapper {
+    height: 100px;
+    width: 600px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #41b883;
+    margin-bottom: 15;
 }
-.greeting {
-  text-align: center;
-  margin-top: 70px;
-  font-size: 50px;
-  color: #41b883;
+
+.input {
+    border: 1px solid #666;
+    height: 100px;
+    width: 600;
+    color: red;
 }
-.message {
-  margin: 30px;
-  font-size: 32px;
-  color: #727272;
+
+.greet {
+    margin-bottom: 20;
+}
+
+.greet-text {
+    font-size: 40;
+}
+
+.btn {
+    margin-top: 200;
+}
+
+.btn-text {
+    font-size: 45;
 }
 </style>
