@@ -3,12 +3,78 @@ import React, {
 } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity,ToastAndroid } from 'react-native';
 import {connect} from 'react-redux';
+// import Storage from 'react-native-storage';
+// import { AsyncStorage } from 'react-native';
 
 class NoAuthComponent extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            message: ''
+        };
+
+        // this.storage = new Storage({
+        //     size: 1000,
+        //     storageBackend: AsyncStorage,
+        //     defaultExpires: 1000 * 3600 * 24,
+        //     enableCache: true
+        // });
+    }
     onLoginPress() {
         console.log(this.props);
         this.props.navRouter.navigate('Login');
     }
+
+    componentWillMount() {
+        this.props.storage.load({
+            key: 'token',
+            id: '01'
+        }).then(ret => {
+            if (ret) {
+                this.props.navRouter.navigate('Home');
+            }
+        });
+    }
+
+    /* *************************************************************************** */
+
+    // setVal() {
+    //     var userA = {
+    //         name: 'Andrew321321321'
+    //     };
+        
+    //     this.storage.save({
+    //         key: 'user',  // Note: Do not use underscore("_") in key!
+    //         id: '1001',	  // Note: Do not use underscore("_") in id!	
+    //         data: userA,
+    //         expires: 1000 * 60	 
+    //     });
+    // }
+
+    // getVal() {
+    //     this.storage.load({
+    //         key: 'user',
+    //         id: '1001'
+    //     }).then(ret => {
+    //         console.log(ret);
+    //         this.setState({
+    //             message: ret.name
+    //         });
+    //         console.log(ret.userid);
+    //     }).catch(err => {
+    //         console.warn(err.message);
+    //         // switch (err.name) {
+    //         //     case 'NotFoundError':
+    //         //         // TODO;
+    //         //         break;
+    //         //     case 'ExpiredError':
+    //         //         // TODO
+    //         //         break;
+    //         // }
+    //     });
+    // }
+
+    /* *************************************************************************** */
 
     render() {
         return (
@@ -20,11 +86,28 @@ class NoAuthComponent extends Component {
                     </View>                   
                 </TouchableOpacity>
                 <Text style={noAuthStyle.text}>...Or</Text>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => process.stdout.write("hello")}>
                     <View style={noAuthStyle.loginBtn}>
                         <Text style={noAuthStyle.text}>Register</Text>
-                    </View>                   
-                </TouchableOpacity>                 
+                    </View>
+                </TouchableOpacity>
+
+                {/* ****************************************** */}
+                <View>
+                    <Text>{this.state.message}</Text>
+                </View>
+                <TouchableOpacity onPress={() => this.setVal()}>
+                    <View style={noAuthStyle.loginBtn}>
+                        <Text style={noAuthStyle.text}>SET</Text>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => this.getVal()}>
+                    <View style={noAuthStyle.loginBtn}>
+                        <Text style={noAuthStyle.text}>GET</Text>
+                    </View>
+                </TouchableOpacity>
+                {/* ****************************************** */}
+
             </View>
         );
     }
@@ -61,10 +144,11 @@ const mapStateToProps = (state) => {
     let navRouter = state.nav.navRouter;
     let storage = state.storage.storage;
     let userData = state.auth.userData;
+
     return {
         navRouter,
         storage,
-        userData
+        userData,
     };
 };
 

@@ -14,7 +14,7 @@ class MainComponent extends Component {
         super(props);
     }
 
-    componentDidMount() {
+    componentWillMount() {
         let navObject = this.props.navigation;
         this.props.setNavigation(navObject);
 
@@ -26,6 +26,15 @@ class MainComponent extends Component {
         });
 
         this.props.setStorage(appStorage);
+
+        // appStorage.load({
+        //     key: 'token',
+        //     id: '01'
+        // }).then(ret => {
+        //     if(ret.token) {
+        //         navObject.naigate('Home');
+        //     }
+        // }).catch(err => {console.log("You're not auth-ed")});
     }
 
     render() {

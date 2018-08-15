@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 
 export class HomeScreenComponent extends React.Component {
     componentDidMount() {
-        this.props.authUser();
+        //this.props.authUser();
     }
 
     render() {
