@@ -41,14 +41,6 @@ class LogInFormComponent extends React.Component {
         }).catch(err => console.log(err));
     }
 
-    componentDidUpdate() {
-        console.log(this.props.userToken);
-        if (this.props.userToken) {
-            console.log("FIRE");
-            this.props.navRouter.navigate('Home');
-        }
-    }
-
     render() {
         return (
             <View style={logInFormStyle.loginContainer}>

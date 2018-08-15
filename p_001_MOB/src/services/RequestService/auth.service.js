@@ -3,7 +3,7 @@ import { BASE_API_URL } from '../../consts/urls.js';
 
 export class AuthService {
     static getToken(userData) {
-        return axios.post(BASE_API_URL + '/login',
+        return axios.post(BASE_API_URL + 'login',
         {
             name: userData.name,
             password: userData.password
@@ -12,7 +12,7 @@ export class AuthService {
     }
 
     static getCustomerDataWithToken(token) {
-        return axios.post(BASE_API_URL + '/auth',
+        return axios.post(BASE_API_URL + 'auth',
             { token: token }
         ).then(response => response.data).catch(err => console.log(err)).catch(err => console.log(err));
     }

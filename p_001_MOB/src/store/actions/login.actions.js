@@ -1,7 +1,8 @@
 import {
     LOG_IN,
     LOG_OUT,
-    AUTH
+    AUTH,
+    SET_USER_TOKEN
 } from './login.types';
 
 export function logIn(payload) {
@@ -18,8 +19,16 @@ export function logOut(payload) {
     }
 }
 
-export function authUser() {
+export function authUser(payload) {
     return {
-        type: AUTH
+        type: AUTH,
+        payload
+    }
+}
+
+export function setUserToken(payload) {
+    return {
+        type: SET_USER_TOKEN,
+        payload
     }
 }

@@ -6,6 +6,7 @@ import {
 import { AuthService } from '../../services';
 
 const authMiddleWare = store => next => action => {
+    console.log(action.type);
     if (action.type == LOG_IN) {
         let userCreds = action.payload;
         AuthService.getToken(userCreds)

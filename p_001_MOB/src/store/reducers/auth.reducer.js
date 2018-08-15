@@ -12,11 +12,11 @@ const initialState = {
 
 export function initAuthReducer(state = initialState, action) {
     switch (action.type) {
-        // case AUTH:
-        //     return {
-        //         ...state,
-        //         userData: action.payload
-        //     }
+        case AUTH:
+            return {
+                ...state,
+                userData: action.payload
+            }
 
         case LOG_OUT: 
             return {

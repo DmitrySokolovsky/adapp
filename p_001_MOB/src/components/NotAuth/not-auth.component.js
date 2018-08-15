@@ -6,6 +6,8 @@ import {connect} from 'react-redux';
 // import Storage from 'react-native-storage';
 // import { AsyncStorage } from 'react-native';
 
+import { setUserToken } from '../../store/actions';
+
 class NoAuthComponent extends Component {
     constructor(props) {
         super(props);
@@ -31,6 +33,8 @@ class NoAuthComponent extends Component {
             id: '01'
         }).then(ret => {
             if (ret) {
+                console.log("NoAuthComponent -> ", ret)
+                this.props.setUserToken(ret);
                 this.props.navRouter.navigate('Home');
             }
         });
@@ -152,4 +156,13 @@ const mapStateToProps = (state) => {
     };
 };
 
-export const NoAuth = connect(mapStateToProps)(NoAuthComponent);
+const mapDispatchToProps = (dispatch) => ({
+    // authUser: (creds) => {
+    //     dispatch(authUser(creds));
+    // },
+    setUserToken: (token) => {
+        dispatch(setUserToken(token));
+    }
+});
+
+export const NoAuth = connect(mapStateToProps, mapDispatchToProps)(NoAuthComponent);
