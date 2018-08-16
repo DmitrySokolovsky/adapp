@@ -6,8 +6,10 @@ import {connect} from 'react-redux';
 import { AsyncStorage } from "react-native";
 import {
     setNavigation,
-    setStorage
+    setStorage,
+    setUserToken
 } from '../../store/actions';
+import { HomeScreen } from '../Home/home.screen';
 
 class MainComponent extends Component {
     constructor(props) {
@@ -27,20 +29,25 @@ class MainComponent extends Component {
 
         this.props.setStorage(appStorage);
 
-        // appStorage.load({
-        //     key: 'token',
-        //     id: '01'
-        // }).then(ret => {
-        //     if(ret.token) {
-        //         navObject.naigate('Home');
-        //     }
-        // }).catch(err => {console.log("You're not auth-ed")});
+        console.log("this.props.userToken", this.props.userToken);
+
+        appStorage.load({
+            key: 'token',
+            id: '01'
+        }).then(ret => {
+            if(ret.token) {
+                console.log(ret.token);
+                this.props.setUserToken(ret.token);
+            }
+        }).catch(err => {console.log("You're not auth-ed")});
     }
 
     render() {
         return (
             <View style={mainStyles.mainContainer}>
-                <NoAuth />
+                {
+                    this.props.userToken ? <HomeScreen/> : <NoAuth />
+                }
             </View>
         );
     }
@@ -49,9 +56,11 @@ class MainComponent extends Component {
 const mapStateToProps = (state) => {
     let navRouter = state.nav.navRouter;
     let storage = state.storage.storage;
+    let userToken = state.auth.userToken;
     return {
         navRouter,
-        storage
+        storage,
+        userToken
     };
 };
 
@@ -61,6 +70,9 @@ const mapDispatchToProps = (dispatch) => ({
     },
     setStorage: (value) => {
         dispatch(setStorage(value));
+    },
+    setUserToken: (token) => {
+        dispatch(setUserToken(token));
     }
 });
 
@@ -70,7 +82,7 @@ const mainStyles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         width: '100%',
-        backgroundColor: '#999'
+        backgroundColor: 'white'
     }
 });
 
