@@ -3,24 +3,13 @@ import React, {
 } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity,ToastAndroid, TextInput } from 'react-native';
 import {connect} from 'react-redux';
-// import Storage from 'react-native-storage';
-// import { AsyncStorage } from 'react-native';
+import { AuthService } from '../../services';
 
 import { setUserToken } from '../../store/actions';
 
 class NoAuthComponent extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            message: ''
-        };
-
-        // this.storage = new Storage({
-        //     size: 1000,
-        //     storageBackend: AsyncStorage,
-        //     defaultExpires: 1000 * 3600 * 24,
-        //     enableCache: true
-        // });
     }
 
     onLoginPress() {
@@ -30,75 +19,19 @@ class NoAuthComponent extends Component {
             password: password
         };
 
-        // this.props.logIn({
-        //     name: login,
-        //     password: password
-        // });
-        // console.log(this.props);
+        console.log(userCreds);
 
         AuthService.getToken(userCreds).then(response => {
+            console.log(response);
             this.props.storage.save({
                 key: 'token',
                 id: '01',	
                 data: response.token,
                 expires: 1000 * 600
-            }).then((ret) => /*this.props.setUserToken(ret)*/ console.log(ret))
+            }).then(() => this.props.navRouter.navigate('Home'))
               .catch((err) => console.log(err));
         }).catch(err => console.log(err));
     }
-
-    componentWillMount() {
-        // this.props.storage.load({
-        //     key: 'token',
-        //     id: '01'
-        // }).then(ret => {
-        //     if (ret) {
-        //         console.log("NoAuthComponent -> ", ret)
-        //         this.props.setUserToken(ret);
-        //         this.props.navRouter.navigate('Home');
-        //     }
-        // });
-    }
-
-    /* *************************************************************************** */
-
-    // setVal() {
-    //     var userA = {
-    //         name: 'Andrew321321321'
-    //     };
-        
-    //     this.storage.save({
-    //         key: 'user',  // Note: Do not use underscore("_") in key!
-    //         id: '1001',	  // Note: Do not use underscore("_") in id!	
-    //         data: userA,
-    //         expires: 1000 * 60	 
-    //     });
-    // }
-
-    // getVal() {
-    //     this.storage.load({
-    //         key: 'user',
-    //         id: '1001'
-    //     }).then(ret => {
-    //         console.log(ret);
-    //         this.setState({
-    //             message: ret.name
-    //         });
-    //         console.log(ret.userid);
-    //     }).catch(err => {
-    //         console.warn(err.message);
-    //         // switch (err.name) {
-    //         //     case 'NotFoundError':
-    //         //         // TODO;
-    //         //         break;
-    //         //     case 'ExpiredError':
-    //         //         // TODO
-    //         //         break;
-    //         // }
-    //     });
-    // }
-
-    /* *************************************************************************** */
 
     render() {
         return (
@@ -114,23 +47,6 @@ class NoAuthComponent extends Component {
                         <Text style={noAuthStyle.loginBtn}>REGISTER</Text>
                     </TouchableOpacity>
                 </View>
-
-                {/* 
-                <View>
-                    <Text>{this.state.message}</Text>
-                </View>
-                <TouchableOpacity onPress={() => this.setVal()}>
-                    <View style={noAuthStyle.loginBtn}>
-                        <Text style={noAuthStyle.text}>SET</Text>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => this.getVal()}>
-                    <View style={noAuthStyle.loginBtn}>
-                        <Text style={noAuthStyle.text}>GET</Text>
-                    </View>
-                </TouchableOpacity>
-                {/* ****************************************** */}
-
             </View>
         );
     }
@@ -186,9 +102,6 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    // authUser: (creds) => {
-    //     dispatch(authUser(creds));
-    // },
     setUserToken: (token) => {
         dispatch(setUserToken(token));
     }

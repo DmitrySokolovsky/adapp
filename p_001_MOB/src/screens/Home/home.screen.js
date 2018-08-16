@@ -1,23 +1,22 @@
 import React from 'react';
-import { View, Text } from 'react-native';
-import { authUser, setUserToken } from '../../store/actions';
+import { Dimensions, View, Text } from 'react-native';
 import {connect} from 'react-redux';
-import { AuthService } from '../../services/RequestService';
+import {
+    Products,
+    Profile
+} from '../../components';
 
-export class HomeScreenComponent extends React.Component {
+class HomeScreenComponent extends React.Component {
     constructor(props) {
         super(props);
-    }
 
-    componentDidMount() {
-        AuthService.getCustomerDataWithToken(this.props.userToken).then((response) => console.log("321321321", response));
-        console.log(this.props.userToken);
+       
     }
 
     render() {
         return (
             <View>
-                <Text>LOGGED IN</Text>
+                <Text>TODO: add navigations</Text>
             </View>
         );
     }
@@ -27,22 +26,11 @@ const mapStateToProps = (state) => {
     let navRouter = state.nav.navRouter;
     let storage = state.storage.storage;
     let userData = state.auth.userData;
-    let userToken = state.auth.userToken;
     return {
         navRouter,
         storage,
-        userData,
-        userToken
+        userData
     };
 };
 
-const mapDispatchToProps = (dispatch) => ({
-    authUser: (creds) => {
-        dispatch(authUser(creds));
-    },
-    setUserToken: (token) => {
-        dispatch(setUserToken(token));
-    }
-});
-
-export const HomeScreen = connect(mapStateToProps, mapDispatchToProps)(HomeScreenComponent);
+export const HomeScreen = connect(mapStateToProps)(HomeScreenComponent);

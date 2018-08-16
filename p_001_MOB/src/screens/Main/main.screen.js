@@ -7,13 +7,18 @@ import { AsyncStorage } from "react-native";
 import {
     setNavigation,
     setStorage,
-    setUserToken
+    setUserToken,
+    authUser
 } from '../../store/actions';
 import { HomeScreen } from '../Home/home.screen';
+import { AuthService } from '../../services';
 
 class MainComponent extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            isLoading: true
+        };
     }
 
     componentWillMount() {
@@ -29,24 +34,41 @@ class MainComponent extends Component {
 
         this.props.setStorage(appStorage);
 
-        console.log("this.props.userToken", this.props.userToken);
-
         appStorage.load({
             key: 'token',
             id: '01'
         }).then(ret => {
-            if(ret.token) {
-                console.log(ret.token);
-                this.props.setUserToken(ret.token);
+            console.log("ret321321321321321");
+            return ret;
+        }).then((ret) => {
+            if (ret) {
+                AuthService.getCustomerDataWithToken(ret).then(result => {
+                    this.props.authUser(result);
+                    this.setState({
+                        isLoading: false
+                    });
+                });
             }
-        }).catch(err => {console.log("You're not auth-ed")});
+        })
+        .catch(err => {
+            this.setState({
+                isLoading: false
+            });
+        });
     }
 
     render() {
+        if (this.state.isLoading) {
+            return (
+                <View style={mainStyles.mainContainer}>
+                    <Text style={mainStyles.loadingLabel}>...LOADING</Text>
+                </View>
+            );
+        }
         return (
             <View style={mainStyles.mainContainer}>
                 {
-                    this.props.userToken ? <HomeScreen/> : <NoAuth />
+                    this.props.userData ? <HomeScreen /> : <NoAuth />
                 }
             </View>
         );
@@ -56,11 +78,11 @@ class MainComponent extends Component {
 const mapStateToProps = (state) => {
     let navRouter = state.nav.navRouter;
     let storage = state.storage.storage;
-    let userToken = state.auth.userToken;
+    let userData = state.auth.userData;
     return {
         navRouter,
         storage,
-        userToken
+        userData
     };
 };
 
@@ -73,7 +95,10 @@ const mapDispatchToProps = (dispatch) => ({
     },
     setUserToken: (token) => {
         dispatch(setUserToken(token));
-    }
+    },
+    authUser: (creds) => {
+        dispatch(authUser(creds));
+    },
 });
 
 const mainStyles = StyleSheet.create({
@@ -83,6 +108,9 @@ const mainStyles = StyleSheet.create({
         alignItems: 'center',
         width: '100%',
         backgroundColor: 'white'
+    },
+    loadingLabel: {
+        fontSize: 40
     }
 });
 
