@@ -1,10 +1,12 @@
 import {
-    SET_NAVIGATION
+    SET_NAVIGATION,
+    SET_HOME_NAVIGATION
 } from '../actions';
 
 const initialState = {
     state: 'INITIAL',
-    navRouter: null
+    navRouter: null,
+    homeRouter: null
 };
 
 export function initNavReducer(state = initialState, action) {
@@ -13,6 +15,12 @@ export function initNavReducer(state = initialState, action) {
             return {
                 ...state,
                 navRouter: action.payload
+            }
+
+        case SET_HOME_NAVIGATION:
+            return {
+                ...state,
+                homeRouter: action.payload
             }
 
         default:

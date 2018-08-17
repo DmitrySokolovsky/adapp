@@ -34,30 +34,42 @@ class MainComponent extends Component {
 
         this.props.setStorage(appStorage);
 
-        appStorage.load({
-            key: 'token',
-            id: '01'
-        }).then(ret => {
-            console.log("ret321321321321321");
-            return ret;
-        }).then((ret) => {
-            if (ret) {
-                AuthService.getCustomerDataWithToken(ret).then(result => {
-                    this.props.authUser(result);
-                    this.setState({
-                        isLoading: false
-                    });
-                });
-            }
-        })
-        .catch(err => {
-            this.setState({
-                isLoading: false
-            });
+        // appStorage.load({
+        //     key: 'token',
+        //     id: '01'
+        // }).then(ret => {
+        //     console.log("ret321321321321321");
+        //     return ret;
+        // }).then((ret) => {
+        //     if (ret) {
+        //         AuthService.getCustomerDataWithToken(ret).then(result => {
+        //             this.props.authUser(result);
+        //             this.setState({
+        //                 isLoading: false
+        //             });
+        //         });
+        //     }
+        // })
+        // .catch(err => {
+        //     this.setState({
+        //         isLoading: false
+        //     });
+        // });
+
+        /* MOCK START */
+
+        let mockUserData = {id: 1, name: "adminTest", company: "adminTest"};
+        this.props.authUser(mockUserData);
+
+        this.setState({
+            isLoading: false
         });
+
+        /* MOCK END */
     }
 
     render() {
+        console.log(this.props);
         if (this.state.isLoading) {
             return (
                 <View style={mainStyles.mainContainer}>
@@ -65,6 +77,7 @@ class MainComponent extends Component {
                 </View>
             );
         }
+
         return (
             <View style={mainStyles.mainContainer}>
                 {

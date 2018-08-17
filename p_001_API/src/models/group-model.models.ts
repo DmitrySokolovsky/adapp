@@ -12,4 +12,7 @@ export class Group extends Model<Group> {
     @ForeignKey(() => Customer)
     @Column
     public customer_creator_id: number;
+
+    @Column
+    public name: string;
 }

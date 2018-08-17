@@ -1,7 +1,7 @@
 import React, {
     Component
 } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity,ToastAndroid, TextInput } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, TextInput } from 'react-native';
 import {connect} from 'react-redux';
 import { AuthService } from '../../services';
 
