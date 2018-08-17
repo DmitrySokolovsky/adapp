@@ -11,7 +11,7 @@ import { IProductRepo } from "./product-repo-interface";
 export class ProductRepository implements IProductRepo {
     public getAllProducts(): Promise<ProductModel[]> {
         return new Promise<ProductModel[]>((resolve, reject) => {
-            Product.sequelize.query('SELECT * FROM "Product"', { type: sequelize.QueryTypes.SELECT })
+            Product.sequelize.query('SELECT * FROM "Product"', { type: sequelize.QueryTypes.SELECT }) // TODO ADD SELECTION BY NAME
             .then(results => resolve(results as ProductModel[]));
         });
     }

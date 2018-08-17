@@ -42,8 +42,8 @@ export class CustomerRepository implements ICustomerRepo {
         console.log(name, "EMAIL EMAIL EMAIL ");
         
         return new Promise<Customer>((resolve, reject) => {
-            Customer.sequelize.query('SELECT id , name FROM "Customer"', {type: sequelize.QueryTypes.SELECT})
-            .then((res) => resolve(res))
+            Customer.sequelize.query('SELECT id , name , company FROM "Customer" WHERE name=' + "'" + name + "'", {type: sequelize.QueryTypes.SELECT})
+            .then((res) => resolve(res[0]))
             .catch(error => reject(this.loggerService.log(error.errmsg, LogStatus.ERROR)));
         });
     }

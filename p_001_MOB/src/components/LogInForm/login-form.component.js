@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import { logIn } from '../../store/actions';
+import { AuthService } from '../../services/RequestService';
 
 class LogInFormComponent extends React.Component {
     constructor(props) {
@@ -12,12 +13,32 @@ class LogInFormComponent extends React.Component {
         };
     }
 
+    componentDidMount() {
+        console.log(this.props);
+    }
+
     onLoginPress() {
         const { login, password } = this.state;
-        this.props.logIn({
+        const userCreds = {
             name: login,
             password: password
-        });
+        };
+
+        // this.props.logIn({
+        //     name: login,
+        //     password: password
+        // });
+        // console.log(this.props);
+
+        AuthService.getToken(userCreds).then(response => {
+            this.props.storage.save({
+                key: 'token',
+                id: '01',	
+                data: response.token,
+                expires: 1000 * 600
+            }).then(() => this.props.navRouter.navigate('Home'))
+              .catch((err) => console.log(err));
+        }).catch(err => console.log(err));
     }
 
     render() {
@@ -27,7 +48,7 @@ class LogInFormComponent extends React.Component {
                 <TextInput placeholder="password" style={logInFormStyle.loginTextInput} onChangeText={(text) => this.setState({ password: text })}/>
                 <TouchableOpacity onPress={() => this.onLoginPress()}>
                     <Text style={logInFormStyle.loginBtn}>LOG IN</Text>
-                </TouchableOpacity>                
+                </TouchableOpacity>
             </View>
         );
     }
@@ -54,14 +75,19 @@ const logInFormStyle = StyleSheet.create({
 
 const mapStateToProps = (state) => {
     let userData = state.auth.userData;
+    let userToken = state.auth.userToken;
+    let navRouter = state.nav.navRouter;
+    let storage = state.storage.storage;
     return {
-        userData
+        userData,
+        navRouter,
+        userToken,
+        storage
     };
 };
 
 const mapDispatchToProps = (dispatch) => ({
     logIn: (creds) => {
-        console.log(creds);
         dispatch(logIn(creds));
     }
 });
