@@ -7,7 +7,7 @@ class App extends React.Component {
       <div className="App">
         <header className="App-header">
           <p>
-            Edit <code>src/App.js</code> and save to reload.
+            Edit <code>srsassc/App.js</code> and save to reload.
           </p>
           <a
             className="App-link"

@@ -17,6 +17,7 @@
     "typescript": "^3.3.3333"
   },
   "scripts": {
+    "ts:watch": "tsc -p tsconfig.json",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
