@@ -1,8 +1,26 @@
-import 'reflect-metadata';
-
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import './App.css';
 
-import { Root } from './components';
+class App extends React.Component {
+  render() {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <p>
+            Edit <code>src/App.js</code> and save to reload.
+          </p>
+          <a
+            className="App-link"
+            href="https://reactjs.org"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Learn React
+          </a>
+        </header>
+      </div>
+    );
+  }
+}
 
-ReactDOM.render(<Root/>, document.getElementById("app"));
+export default App;
