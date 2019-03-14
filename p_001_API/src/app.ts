@@ -36,7 +36,12 @@ server.setConfig((app) => {
     app.use(bodyParser.json());
     app.use(passport.initialize());
     app.use(morgan('dev'));
-    app.use(express.static('../p_001_APP/dist'));                             
+    app.use(express.static('../p_001_APP/dist'));
+    app.use((req: any, res: any, next: any): void => {
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        next();
+    });
 });
 
 let serverInstance = server.build();

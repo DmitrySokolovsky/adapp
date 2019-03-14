@@ -16,6 +16,7 @@ export class LoginController {
 
     @httpPost('/')
     public logIn(request: Request, response: Response): Promise<Response> {
+        console.log('++++++++++++++++++++', request);
         const oParams: CustomerModel = {
             name: request.body.name,
             password: request.body.password
