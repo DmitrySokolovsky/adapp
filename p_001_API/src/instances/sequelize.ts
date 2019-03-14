@@ -1,7 +1,7 @@
 import { Sequelize } from 'sequelize-typescript';
 
 export const sequelize = new Sequelize({
-    database: 'addappdb', // at home version = adappdb // at WPC addappdb
+    database: 'adappdb', // at home version = adappdb // at WPC addappdb
     dialect: 'postgres',
     pool: {
         max: 5,
@@ -10,6 +10,6 @@ export const sequelize = new Sequelize({
         idle: 10000
     },
     username: 'postgres',
-    password: 'sokill666', // at home version = Dimmy_1989_guNN' // at WPC sokill666
+    password: 'Dimmy_1989_guNN', // at home version = Dimmy_1989_guNN' // at WPC sokill666
     modelPaths: [__dirname + '/models']
 });

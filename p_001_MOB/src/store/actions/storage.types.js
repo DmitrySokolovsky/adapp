@@ -1,1 +1,0 @@
-export const SET_STORAGE =  '[TF][NAV] SET_STORAGE';
