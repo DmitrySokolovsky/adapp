@@ -1,7 +1,7 @@
 import * as passport from 'passport';
 import { ExtractJwt } from 'passport-jwt';
 import * as passportJWT from 'passport-jwt';
-import { Customer } from '../models';
+import { User } from '../models';
 
 const Strategy = passportJWT.Strategy;
 
@@ -12,7 +12,7 @@ const params = {
 
 passport.use(new Strategy(params, (payload, done) => {
     console.log(payload, "passport.js");
-    Customer.findOne({
+    User.findOne({
         where: {
             name: payload
         }
