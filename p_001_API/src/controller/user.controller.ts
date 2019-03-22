@@ -15,8 +15,6 @@ export class UserController {
 
     @httpGet('/')
     public getUserData(request: Request, response: Response): Promise<Response> {
-        console.log('++++++++++++++++++');
-        console.log(request.body);
 
         return new Promise<Response>((resolve, reject) => {
             resolve(this.userRepo.getUserWithName(request.user.name).then(data => response.json(data)).catch((err) => response.send(err)));

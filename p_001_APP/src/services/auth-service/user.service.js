@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { BASE_API_URL } from '../../constants';
 
 export class UserService {
@@ -7,9 +6,9 @@ export class UserService {
         return fetch(BASE_API_URL + '/user', {
             headers: new Headers({
                 'authorization': 'JWT ' + sToken,
-                'Content-Type': 'application/json; charset=utf-8'
+                'Content-Type': 'application/json'
             })
 
-        }).then(response => response.data).catch(err => alert(err));
+        }).then(res => res.json());
     }
 }

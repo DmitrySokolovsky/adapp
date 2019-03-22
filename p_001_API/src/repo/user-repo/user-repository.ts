@@ -40,11 +40,8 @@ export class UserRepository implements IUserRepo {
 
     public getUserWithName(name: string): Promise<User> {
         return new Promise<User>((resolve, reject) => {
-            User.findOne({
-                where: {
-                    name: name,
-                }
-            }).then((res) => resolve(res))
+            User.sequelize.query('SELECT id , name FROM "User" WHERE name=' + "'" + name + "'", {type: sequelize.QueryTypes.SELECT})
+            .then((res) => resolve(res[0]))
             .catch(error => reject(this.loggerService.log(error.errmsg + 'getUser withName', LogStatus.ERROR)));
         });
     }
