@@ -39,7 +39,7 @@ server.setConfig((app) => {
     app.use(express.static('../p_001_APP/dist'));
     app.use((req: any, res: any, next: any): void => {
         res.header("Access-Control-Allow-Origin", "*");
-        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
         next();
     });
 });

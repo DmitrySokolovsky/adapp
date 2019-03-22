@@ -7,7 +7,7 @@ const Strategy = passportJWT.Strategy;
 
 const params = {
     secretOrKey: 'feed',
-    jwtFromRequest: ExtractJwt.fromBodyField('token')
+    jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('JWT')
 };
 
 passport.use(new Strategy(params, (payload, done) => {
