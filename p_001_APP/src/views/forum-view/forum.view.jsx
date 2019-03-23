@@ -1,30 +1,36 @@
 import React from 'react';
-import { UserService } from '../../services';
+import { connect } from 'react-redux';
+import { getCurrentUser } from '../../store/actions';
+import { Header, MainSpacer, SideBar } from '../../components';
+import './styles.css';
 
-export class ForumView extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            user: {
-                name: ''
-            }
-        };
-        this.oUserService = new UserService();
-    }
+class _ForumView extends React.Component {
     componentDidMount() {
-        this.oUserService.getCurrentUser().then(res => {
-            this.setState({
-                user: res
-            });
-        }).catch(err => console.log(err));
+        this.props.getCurrentUser();
+        console.log(this.props);
     }
 
     render() {
         return (
             <div>
-                user: {this.state.user.name}
+                <Header />
+                <MainSpacer />
+                <div className="main-content">
+                    <SideBar/>
+                </div>
             </div>
         );
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        user: state.user.user
+    }
+};
+
+const mapDispatchToProps = {
+    getCurrentUser
+};
+
+export const ForumView = connect(mapStateToProps, mapDispatchToProps)(_ForumView);
