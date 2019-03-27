@@ -3,10 +3,13 @@ import { LoggerService, LoggerServiceImplementation } from './logger';
 
 import {
     IUserRepo,
-    UserRepository
+    UserRepository,
+    ICategoryRepo,
+    CategoryRepository
 } from '../repo';
 
 export const CONTAINER = new Container();
 
 CONTAINER.bind<LoggerService>(LoggerService).to(LoggerServiceImplementation);
 CONTAINER.bind<IUserRepo>(IUserRepo).to(UserRepository);
+CONTAINER.bind<ICategoryRepo>(ICategoryRepo).to(CategoryRepository);

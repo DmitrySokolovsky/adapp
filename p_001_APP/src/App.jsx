@@ -13,8 +13,9 @@ class App extends React.Component {
       <div className="App">
       <Provider store={appStore}>
         <Router history={createBrowserHistory()}>
-          <PrivateRoute exact path="/" component={ForumView}/>
+          <PrivateRoute exact path="/"/>
           <Route path="/login" component={Login}/>
+          <Route path="/forum" component={ForumView}/>
         </Router>
       </Provider>
       </div>

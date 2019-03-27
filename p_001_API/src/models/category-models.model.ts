@@ -15,9 +15,13 @@ export class Category extends Model<Category> {
 
     @Column
     public description: string;
+
+    @Column
+    public pic: string;
 }
 
 export abstract class CategoryModel {
     public name: string;
     public description: string;
+    public pic: string;
 }
