@@ -45,9 +45,9 @@ class _CategoryCard extends React.Component {
                 </CardActionArea>
                 <CardActions>
                     <NavLink to={`/forum/${this.props.name}`}>
-                    <Button size="small" color="primary">
-                        Подробнее
-                    </Button>
+                        <Button size="small" color="primary">
+                            Подробнее
+                        </Button>
                     </NavLink>
                 </CardActions>
           </Card>

@@ -1,7 +1,3 @@
-.main-content {
-    display: flex;
-}
-
 .tables {
     display: flex;
     flex-wrap: wrap;
