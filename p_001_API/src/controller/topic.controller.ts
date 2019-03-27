@@ -15,11 +15,14 @@ export class TopicController {
 
     @httpPost('/')
     public addTopic(request: Request, response: Response): Promise<Response> {
-        console.log('++++++++++++++');
-        console.log(request);
+        const oParams: any = {
+            id: request.body.id,
+            name: request.body.name
+        };
+        console.log('+++++', request.body);
 
         return new Promise<Response>((resolve, reject) => {
-            resolve(this.topicRepo.addTopic(1, 'Hello').then(data => response.json(data)).catch((err) => response.send(err)));
+            resolve(this.topicRepo.addTopic(oParams.id, oParams.name).then((res) => res.status(200).send()).catch((err) => response.send(err)));
             reject(this.loggerService.log('Unhandled error', LogStatus.ERROR));
         });
     }

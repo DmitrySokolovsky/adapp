@@ -21,5 +21,5 @@ export class Topic extends Model<Topic> {
 export abstract class TopicModel {
     public category_id: number;
     public name: string;
-    public id: number;
+    public id?: number;
 }

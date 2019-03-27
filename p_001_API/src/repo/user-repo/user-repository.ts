@@ -18,10 +18,14 @@ export class UserRepository implements IUserRepo {
             User.create(oParams).then(
                 (res) => {
                     this.loggerService.log(`Set all User success ${res}`, LogStatus.INFO);
+                    
+                    return resolve();
                 }
             ).catch(
                 (error) => {
                     this.loggerService.log(error.errmsg, LogStatus.ERROR);
+
+                    return reject();
                 }
             );
         });

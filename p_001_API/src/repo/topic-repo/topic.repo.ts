@@ -1,4 +1,4 @@
-import { Category, Topic } from '../../models';
+import { Category, Topic, TopicModel } from '../../models';
 import { ITopicRepo } from './topic.interface';
 
 import { injectable, inject } from "inversify";
@@ -14,10 +14,25 @@ export class TopicRepository implements ITopicRepo {
     }
 
     public addTopic(id: number, name: string): Promise<any> {
+        let oParams: TopicModel = {
+            category_id: id,
+            name: name
+        };
+
         return new Promise<any>((resolve, reject) => {
-            Category.sequelize.query('INSERT INTO "Topic" (category_id, name) VALUES' + "'" + id + "', '" + name + "'", {type: sequelize.QueryTypes.INSERT})
-            .then(result => resolve(result))
-            .catch(error => reject(this.loggerService.log(error.errmsg, LogStatus.ERROR)));
+            Topic.create(oParams).then(
+                (res) => {
+                    this.loggerService.log(`Set success ${res}`, LogStatus.INFO);
+
+                    return resolve();
+                }
+            ).catch(
+                (error) => {
+                    this.loggerService.log(error.errmsg, LogStatus.ERROR);
+                    
+                    return reject();
+                }
+            );
         });
     }
 }
