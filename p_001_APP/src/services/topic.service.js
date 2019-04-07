@@ -18,9 +18,9 @@ export class TopicService {
         }).then((res) => console.log(res.json()));
     }
 
-    getTopicPreview(id) {
+    getTopics(id) {
         const sToken = localStorage.getItem('token');
-        return fetch(BASE_API_URL + `/${id}/topicPreview`, {
+        return fetch(BASE_API_URL + `/categories/${id}`, {
             headers: new Headers({
                 'authorization': 'JWT ' + sToken,
                 'Content-Type': 'application/json'

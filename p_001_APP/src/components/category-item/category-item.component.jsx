@@ -9,12 +9,15 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Icon from '@material-ui/core/Icon';
 import {NavLink} from 'react-router-dom';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 
 const styles = {
     card: {
         width: 345,
         marginTop: 15,
-        height: 240,
+        height: 400,
         marginRight: 15,
         display: 'flex',
         justifyContent: 'space-between',
@@ -25,26 +28,45 @@ const styles = {
     },
 };
 
-class _CategoryCard extends React.Component {
+class _CategoryCard extends React.PureComponent {
     render() {
-        const { classes } = this.props;
+        const { classes, cardData } = this.props;
         return(
             <Card className={classes.card}>
                 <CardActionArea>
                     <Icon color="secondary">
-                        school
+                        There will be image
                     </Icon>
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="h2">
-                            {this.props.name}
+                            {cardData.name}
                         </Typography>
                         <Typography component="p">
-                            {this.props.description}
+                            {cardData.description}
                         </Typography>
+                        <Typography component="p">
+                            Последние темы
+                        </Typography>
+                        <List>
+                            {
+                                cardData.items ? cardData.items.map(item => {
+                                    return (
+                                        <ListItem key={item.id}>
+                                            <ListItemText
+                                                primary={item.name}
+                                            />
+                                        </ListItem>
+                                    )
+                                }) : 
+                                <Typography component="p">
+                                    Тем пока что нет =(
+                                </Typography>
+                            }
+                        </List>
                     </CardContent>
                 </CardActionArea>
                 <CardActions>
-                    <NavLink to={`/forum/${this.props.name}`}>
+                    <NavLink to={`/forum/category/${cardData.id}`}>
                         <Button size="small" color="primary">
                             Подробнее
                         </Button>

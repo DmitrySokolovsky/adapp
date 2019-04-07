@@ -1,5 +1,5 @@
 import { Category } from '../../models';
 
 export abstract class ICategoryRepo {
-    public abstract getCategories(): Promise<Category[]>;
+    public abstract getCategories(): Promise<any>;
 }

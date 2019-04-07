@@ -35,4 +35,22 @@ export class TopicRepository implements ITopicRepo {
             );
         });
     }
+
+    public getTopicsById(id: number | string): Promise<Topic[]> {
+
+        return new Promise<Topic[]>((resolve, reject) => {
+            Topic.findAll({
+                where: {
+                    category_id: id
+                }
+            }).then(data => resolve(data))
+            .catch(
+                (error) => {
+                    this.loggerService.log(error.errmsg, LogStatus.ERROR);
+                    
+                    return reject();
+                }
+            );
+        });
+    }
 }
