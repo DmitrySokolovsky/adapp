@@ -4,8 +4,14 @@ export const styles = theme => ({
     root: {
         flexGrow: 1,
     },
+    toolbarRoot: {
+        height: 80
+    },
     barColorPrimary: {
         backgroundColor: '#363535'
+    },
+    button: {
+        margin: theme.spacing.unit,
     },
     label: {
         color: '#fff'
@@ -15,6 +21,11 @@ export const styles = theme => ({
         width: '100%',
     },
     search: {
+        borderLeftWidth: 2,
+        borderLeftColor: '#b4d3d3',
+        borderLeftStyle: 'solid',
+        borderBottomLeftRadius: 0,
+        borderTopLeftRadius: 0,
         display: 'flex',
         position: 'relative',
         borderRadius: theme.shape.borderRadius,
@@ -37,6 +48,7 @@ export const styles = theme => ({
         justifyContent: 'center',
     },
     inputInput: {
+        borderRadius: 'none',
         paddingTop: theme.spacing.unit,
         paddingRight: theme.spacing.unit,
         paddingBottom: theme.spacing.unit,
@@ -53,6 +65,14 @@ export const styles = theme => ({
         flexGrow: 1,
     },
     avatar: {
-        marginLeft: '1rem'
+        marginLeft: '1rem',
+    },
+    badge: {
+        marginRight: 39,
+        marginTop: 5,
+        backgroundColor: '#b4d3d3'
+    },
+    buttonsAnimation: {
+        display: 'none'
     }
 });
