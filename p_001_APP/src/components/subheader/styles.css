@@ -1,0 +1,7 @@
+.img {
+    height: 100%;
+    width: 100%;
+    background: url(../../assets/logo.jpg) no-repeat;
+    background-size: cover;
+    background-position-y: center;
+}
