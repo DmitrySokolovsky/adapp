@@ -1,10 +1,13 @@
 import React from 'react';
-import { SubHeaderMenu } from '../subheadermenu/sunheadermenu.component';
+import { SubHeaderMenu, SubheaderBackground } from '../subheader';
 
 export class Header extends React.PureComponent {
     render() {
         return (
-            <SubHeaderMenu />
+            <React.Fragment>
+                <SubHeaderMenu />
+                <SubheaderBackground />
+            </React.Fragment>
         );
     }
 }
